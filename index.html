@@ -1,13 +1,15 @@
 
 
 
+  
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Swagger Petstore v1.0.0</title>
+    <title>ox API 0.1.0</title>
 
     <style>
     </style>
@@ -43,7 +45,7 @@ window.onpopstate = function() {
 
   </head>
 
-  <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;]">
+  <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -64,23 +66,7 @@ window.onpopstate = function() {
             
           
             
-              <a href="#" data-language-name="javascript">JavaScript</a>
-            
-          
-            
-              <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
-            
-          
-            
-              <a href="#" data-language-name="ruby">Ruby</a>
-            
-          
-            
-              <a href="#" data-language-name="python">Python</a>
-            
-          
-            
-              <a href="#" data-language-name="java">Java</a>
+              <a href="#" data-language-name="javascript">Javascript</a>
             
           
         </div>
@@ -95,7 +81,31 @@ window.onpopstate = function() {
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#Swagger-Petstore" class="toc-h1 toc-link" data-title="Swagger Petstore v1.0.0">Swagger Petstore v1.0.0</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            
+          </li>
+        
+          <li>
+            <a href="#responses" class="toc-h1 toc-link" data-title="Responses">Responses</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#structure" class="toc-h2 toc-link" data-title="Structure">Structure</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#response-data-success" class="toc-h2 toc-link" data-title="response.data success">response.data success</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#response-data-failure" class="toc-h2 toc-link" data-title="response.data failure">response.data failure</a>
+                    
+                  </li>
+                
+              </ul>
             
           </li>
         
@@ -105,7 +115,32 @@ window.onpopstate = function() {
           </li>
         
           <li>
-            <a href="#Swagger-Petstore-pet" class="toc-h1 toc-link" data-title="pet">pet</a>
+            <a href="#beacon" class="toc-h1 toc-link" data-title="Beacon">Beacon</a>
+            
+          </li>
+        
+          <li>
+            <a href="#client" class="toc-h1 toc-link" data-title="Client">Client</a>
+            
+          </li>
+        
+          <li>
+            <a href="#event" class="toc-h1 toc-link" data-title="Event">Event</a>
+            
+          </li>
+        
+          <li>
+            <a href="#org" class="toc-h1 toc-link" data-title="Org">Org</a>
+            
+          </li>
+        
+          <li>
+            <a href="#sensor" class="toc-h1 toc-link" data-title="Sensor">Sensor</a>
+            
+          </li>
+        
+          <li>
+            <a href="#-examples-" class="toc-h1 toc-link" data-title="(Examples)">(Examples)</a>
             
               <ul class="toc-list-h2">
                 
@@ -149,15 +184,6 @@ window.onpopstate = function() {
                     
                   </li>
                 
-              </ul>
-            
-          </li>
-        
-          <li>
-            <a href="#Swagger-Petstore-store" class="toc-h1 toc-link" data-title="store">store</a>
-            
-              <ul class="toc-list-h2">
-                
                   <li>
                     <a href="#getinventory" class="toc-h2 toc-link" data-title="getInventory">getInventory</a>
                     
@@ -177,15 +203,6 @@ window.onpopstate = function() {
                     <a href="#deleteorder" class="toc-h2 toc-link" data-title="deleteOrder">deleteOrder</a>
                     
                   </li>
-                
-              </ul>
-            
-          </li>
-        
-          <li>
-            <a href="#Swagger-Petstore-user" class="toc-h1 toc-link" data-title="user">user</a>
-            
-              <ul class="toc-list-h2">
                 
                   <li>
                     <a href="#createuser" class="toc-h2 toc-link" data-title="createUser">createUser</a>
@@ -270,12 +287,15 @@ window.onpopstate = function() {
             
           </li>
         
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            
+          </li>
+        
 		</ul>
       </div>
       
         <ul class="toc-footer">
-          
-            <li><a href="https://mermade.github.io/shins/asyncapi.html">See AsyncAPI example</a></li>
           
         </ul>
       
@@ -283,56 +303,96 @@ window.onpopstate = function() {
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Swagger-Petstore">Swagger Petstore v1.0.0</h1>
-<blockquote>
-<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
-</blockquote>
-<p>🐶 🐱 🐰 This is a sample server Petstore server.  You can find out more about Swagger at <a href="http://swagger.io">http://swagger.io</a> or on <a href="http://swagger.io/irc/">irc.freenode.net, #swagger</a>.  For this sample, you can use the api key <code>special-key</code> to test the authorization filters.</p>
-<p>Base URLs:</p>
-<ul>
-<li><a href="http://petstore.swagger.io/v2">http://petstore.swagger.io/v2</a></li>
-</ul>
-<p><a href="http://swagger.io/terms/">Terms of service</a>
-Email: <a href="mailto:apiteam@swagger.io">Support</a>
-License: <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></p>
+        <h1 id="introduction">Introduction</h1>
+<p>Welcome to the Signal Biometrics <code>ox</code> API documentation. This should provide you with all the info you need to interact with our back-end</p>
+<p>Our base URL is <a href="https://api.signal.bio">https://api.signal.bio/</a></p>
+<p>You can report issues at <a href="mailto:api.support@signal.bio">api.support@signal.bio</a></p>
+<h1 id="responses">Responses</h1>
+<h2 id="structure">Structure</h2>
+<p>Our API responses are JSON objects with the results (or error) assigned to the <code>data</code> property. The structure loosely follows the <a href="https://labs.omniti.com/labs/jsend">JSend</a> specs</p>
+<pre class="highlight"><code>{
+  &quot;program&quot;: &quot;ox&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;datetime&quot;: &quot;2017-10-11T13:10:11.669Z&quot;,
+  &quot;timestamp&quot;: 1507727411669,
+  &quot;code&quot;:200,
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: &quot;Call successful&quot;,
+  &quot;data&quot;: {
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;OK&quot;,
+    &quot;code&quot;: 200
+  }
+}
+</code></pre>
+<h2 id="response-data-success">response.data success</h2>
+<p>If the request succeed with a <code>200</code>, the <code>data</code> property will be populated according to the HTTP operation requested by the client and the number of entities</p>
+<pre class="highlight"><code>POST
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+
+READ
+ one:
+  {entity}
+ many:
+  [{entity},{entity}]
+
+UPDATE
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+
+DELETE
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+</code></pre>
+<h2 id="response-data-failure">response.data failure</h2>
+<p>If the request fails witha <code>4xx</code> or <code>5xx</code>, the <code>data</code> property will be be the same regardless of the HTTP operation but will change depending on the number of entities</p>
+<pre class="highlight"><code>one:
+ {id: '123', message: 'formatted error text blah blah'}
+many:
+ [{id: '123', message: 'formatted error text blah blah'}, {id: '123', message: 'formatted error text blah blah'}]
+</code></pre>
 <h1 id="authentication">Authentication</h1>
-<ul>
-<li>
-<p>oAuth2 authentication.</p>
-<ul>
-<li>Flow: implicit</li>
-<li>Authorization URL = <a href="http://petstore.swagger.io/oauth/dialog">http://petstore.swagger.io/oauth/dialog</a></li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Scope</th>
-<th>Scope Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>write:pets</td>
-<td>modify pets in your account</td>
-</tr>
-<tr>
-<td>read:pets</td>
-<td>read your pets</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>API Key (api_key)
-<ul>
-<li>Parameter Name: <strong>api_key</strong>, in: header.</li>
-</ul>
-</li>
-</ul>
-<h1 id="Swagger-Petstore-pet">pet</h1>
-<p>Everything about your Pets</p>
-<p><a href="http://swagger.io">Find out more</a></p>
+<p>For all API request, <code>ox</code> expects a JWT token to be included in a header that looks like the following:</p>
+<pre class="highlight"><code>Authorization: bearer [jwt]
+</code></pre>
+<aside class="notice">
+You must replace <code>[jwt]</code> with your client API key
+</aside>
+<p>Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happen in three steps:</p>
+<ol>
+<li>A user adds a client through the <code>/client</code> endpoint;</li>
+<li>The response will contain an plaintext API key;</li>
+<li>The client uses this API key to get a <code>json web token</code> by hitting <code>/client/token/[parentorg]/[clientid]/[clientapikey]</code>;</li>
+<li>The client includes the token in its authorization header with every subsequent request;</li>
+</ol>
+<pre class="highlight tab tab-html"><code>POST /client/tada
+
+
+</code></pre>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># With shell, you can just pass the correct header with each request</span>
+curl <span class="hljs-string">"api_endpoint_here"</span>
+  -H <span class="hljs-string">"Authorization: meowmeowmeow"</span>
+
+
+</code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> kittn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kittn'</span>);
+<span class="hljs-keyword">let</span> api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>);
+
+
+</code></pre>
+<h1 id="beacon">Beacon</h1>
+<h1 id="client">Client</h1>
+<h1 id="event">Event</h1>
+<h1 id="org">Org</h1>
+<h1 id="sensor">Sensor</h1>
+<h1 id="-examples-">(Examples)</h1>
 <h2 id="addpet">addPet</h2>
 <p><a id="opIdaddPet"></a></p>
 <blockquote>
@@ -2137,7 +2197,6 @@ System.out.println(response.toString());
 To perform this operation, you must be authenticated by means of one of the following methods:
 petstore_auth ( Scopes: write:pets read:pets )
 </aside>
-<h1 id="Swagger-Petstore-store">store</h1>
 <p>Access to Petstore orders</p>
 <h2 id="getinventory">getInventory</h2>
 <p><a id="opIdgetInventory"></a></p>
@@ -2849,8 +2908,6 @@ System.out.println(response.toString());
 <aside class="success">
 This operation does not require authentication
 </aside>
-<h1 id="Swagger-Petstore-user">user</h1>
-<p>Operations about user</p>
 <p><a href="http://swagger.io">Find out more about our store</a></p>
 <h2 id="createuser">createUser</h2>
 <p><a id="opIdcreateUser"></a></p>
@@ -4595,6 +4652,65 @@ This operation does not require authentication
 </tr>
 </tbody>
 </table>
+<h1 id="errors">Errors</h1>
+<aside class="notice">
+This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+</aside>
+<p>The Kittn API uses the following error codes:</p>
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified kitten could not be found.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable -- You requested a format that isn't json.</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone -- The kitten requested has been removed from our servers.</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I'm a teapot.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests -- You're requesting too many kittens! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable -- We're temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody>
+</table>
 
       </div>
       <div class="dark-box">
@@ -4610,23 +4726,7 @@ This operation does not require authentication
               
             
               
-                <a href="#" data-language-name="javascript">JavaScript</a>
-              
-            
-              
-                <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
-              
-            
-              
-                <a href="#" data-language-name="ruby">Ruby</a>
-              
-            
-              
-                <a href="#" data-language-name="python">Python</a>
-              
-            
-              
-                <a href="#" data-language-name="java">Java</a>
+                <a href="#" data-language-name="javascript">Javascript</a>
               
             
           </div>

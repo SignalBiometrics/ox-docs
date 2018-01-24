@@ -1,18 +1,12 @@
 ---
-title: Swagger Petstore v1.0.0
+title: ox API 0.1.0
 language_tabs:
   - shell: Shell
   - http: HTTP
-  - javascript: JavaScript
-  - javascript--nodejs: Node.JS
-  - ruby: Ruby
-  - python: Python
-  - java: Java
-toc_footers:
-  - >-
-    <a href="https://mermade.github.io/shins/asyncapi.html">See AsyncAPI
-    example</a>
-includes: []
+  - javascript: Javascript
+toc_footers: []
+includes:
+  - errors
 search: true
 highlight_theme: darkula
 headingLevel: 2
@@ -20,59 +14,126 @@ headingLevel: 2
 
 ---
 
+# Introduction
 
-<h1 id="Swagger-Petstore">Swagger Petstore v1.0.0</h1>
+Welcome to the Signal Biometrics `ox` API documentation. This should provide you with all the info you need to interact with our back-end
 
+Our base URL is [https://api.signal.bio/](https://api.signal.bio)
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+You can report issues at [api.support@signal.bio](mailto:api.support@signal.bio)
 
+# Responses
 
-:dog: :cat: :rabbit: This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.
+## Structure
 
+Our API responses are JSON objects with the results (or error) assigned to the `data` property. The structure loosely follows the [JSend](https://labs.omniti.com/labs/jsend) specs
 
-Base URLs:
+```
+{
+  "program": "ox",
+  "version": "0.0.1",
+  "datetime": "2017-10-11T13:10:11.669Z",
+  "timestamp": 1507727411669,
+  "code":200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "status": "success",
+    "message": "OK",
+    "code": 200
+  }
+}
+```
 
+## response.data success
 
-* <a href="http://petstore.swagger.io/v2">http://petstore.swagger.io/v2</a>
+If the request succeed with a `200`, the `data` property will be populated according to the HTTP operation requested by the client and the number of entities
 
+```
+POST
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
 
-<a href="http://swagger.io/terms/">Terms of service</a>
-Email: <a href="mailto:apiteam@swagger.io">Support</a> 
-License: <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>
+READ
+ one:
+  {entity}
+ many:
+  [{entity},{entity}]
 
+UPDATE
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+
+DELETE
+ one:
+  {id: '123', message: 'success'}
+ many:
+  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+```
+
+## response.data failure
+
+If the request fails witha `4xx` or `5xx`, the `data` property will be be the same regardless of the HTTP operation but will change depending on the number of entities
+
+```
+one:
+ {id: '123', message: 'formatted error text blah blah'}
+many:
+ [{id: '123', message: 'formatted error text blah blah'}, {id: '123', message: 'formatted error text blah blah'}]
+```
 
 # Authentication
 
+For all API request, `ox` expects a JWT token to be included in a header that looks like the following:
 
-- oAuth2 authentication. 
+```
+Authorization: bearer [jwt]
+```
 
+<aside class="notice">
+You must replace <code>[jwt]</code> with your client API key
+</aside>
 
-    - Flow: implicit
-    - Authorization URL = [http://petstore.swagger.io/oauth/dialog](http://petstore.swagger.io/oauth/dialog)
-
-
-|Scope|Scope Description|
-|---|---|
-|write:pets|modify pets in your account|
-|read:pets|read your pets|
-
-
-* API Key (api_key)
-    - Parameter Name: **api_key**, in: header. 
-
-
-<h1 id="Swagger-Petstore-pet">pet</h1>
+Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happen in three steps:
+1. A user adds a client through the `/client` endpoint;
+1. The response will contain an plaintext API key;
+1. The client uses this API key to get a `json web token` by hitting `/client/token/[parentorg]/[clientid]/[clientapikey]`;
+1. The client includes the token in its authorization header with every subsequent request;
 
 
-Everything about your Pets
+```html
+POST /client/tada
 
 
-<a href="http://swagger.io">Find out more</a>
+```
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here"
+  -H "Authorization: meowmeowmeow"
 
 
+```
+
+```javascript
+const kittn = require('kittn');
+let api = kittn.authorize('meowmeowmeow');
+
+
+```
+
+# Beacon
+# Client
+# Event
+# Org
+# Sensor
+
+# (Examples)
 ## addPet
-
-
 <a id="opIdaddPet"></a>
 
 
@@ -1757,9 +1818,6 @@ petstore_auth ( Scopes: write:pets read:pets )
 </aside>
 
 
-<h1 id="Swagger-Petstore-store">store</h1>
-
-
 Access to Petstore orders
 
 
@@ -2503,12 +2561,6 @@ For valid response try integer IDs with positive integer value. Negative or non-
 <aside class="success">
 This operation does not require authentication
 </aside>
-
-
-<h1 id="Swagger-Petstore-user">user</h1>
-
-
-Operations about user
 
 
 <a href="http://swagger.io">Find out more about our store</a>
