@@ -45,7 +45,7 @@ window.onpopstate = function() {
 
   </head>
 
-  <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;]">
+  <body data-languages="[&quot;shell&quot;,&quot;http&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -65,10 +65,6 @@ window.onpopstate = function() {
               <a href="#" data-language-name="http">HTTP</a>
             
           
-            
-              <a href="#" data-language-name="javascript">Javascript</a>
-            
-          
         </div>
       
       
@@ -86,22 +82,22 @@ window.onpopstate = function() {
           </li>
         
           <li>
+            <a href="#requests" class="toc-h1 toc-link" data-title="Requests">Requests</a>
+            
+          </li>
+        
+          <li>
             <a href="#responses" class="toc-h1 toc-link" data-title="Responses">Responses</a>
             
               <ul class="toc-list-h2">
                 
                   <li>
-                    <a href="#structure" class="toc-h2 toc-link" data-title="Structure">Structure</a>
+                    <a href="#success" class="toc-h2 toc-link" data-title="Success">Success</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#response-data-success" class="toc-h2 toc-link" data-title="response.data success">response.data success</a>
-                    
-                  </li>
-                
-                  <li>
-                    <a href="#response-data-failure" class="toc-h2 toc-link" data-title="response.data failure">response.data failure</a>
+                    <a href="#failure" class="toc-h2 toc-link" data-title="Failure">Failure</a>
                     
                   </li>
                 
@@ -304,89 +300,251 @@ window.onpopstate = function() {
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
-<p>Welcome to the Signal Biometrics <code>ox</code> API documentation. This should provide you with all the info you need to interact with our back-end</p>
-<p>Our base URL is <a href="https://api.signal.bio">https://api.signal.bio/</a></p>
-<p>You can report issues at <a href="mailto:api.support@signal.bio">api.support@signal.bio</a></p>
+<p>Welcome to the Signal Biometrics <code>ox</code> API documentation. This should provide you with all the info you need to collect, store, retrieve and expose time series data</p>
+<p>From a high-level perspective, the API allows you to apply CRUD operations to entities using the RESTful connector that you want. The entities you can interact with are:</p>
+<ul>
+<li>Beacon (an emitting device)</li>
+<li>Client (an API client)</li>
+<li>Event (a datapoint)</li>
+<li>Org (an organisation)</li>
+<li>Sensor (a sensing device)</li>
+</ul>
+<p>Our production URL is<br>
+<a href="https://api.signal.bio">https://api.signal.bio/</a></p>
+<p>Our staging URL is<br>
+<a href="https://api.stage.signal.bio">https://api.stage.signal.bio/</a></p>
+<p>You can report issues at<br>
+<a href="mailto:api.support@signal.bio">api.support@signal.bio</a></p>
+<h1 id="requests">Requests</h1>
+<p>Almost all requests <em>need</em> to include a valid JWT token. See the <a href="#authentication">authentication</a> section for more details about this</p>
+<p>This depends on the endpoint, but as a general rule if the request du not create or modify entities, you will not need to include a header (beside <code>Authorization</code>). If you are passing along a JSON payload however, remember to set the <code>Content-type</code> header as well</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authorization</td>
+<td>bearer <em>{jwt}</em></td>
+</tr>
+<tr>
+<td>Content-type</td>
+<td>application/json</td>
+</tr>
+</tbody>
+</table>
 <h1 id="responses">Responses</h1>
-<h2 id="structure">Structure</h2>
-<p>Our API responses are JSON objects with the results (or error) assigned to the <code>data</code> property. The structure loosely follows the <a href="https://labs.omniti.com/labs/jsend">JSend</a> specs</p>
-<pre class="highlight"><code>{
-  &quot;program&quot;: &quot;ox&quot;,
-  &quot;version&quot;: &quot;0.0.1&quot;,
-  &quot;datetime&quot;: &quot;2017-10-11T13:10:11.669Z&quot;,
-  &quot;timestamp&quot;: 1507727411669,
-  &quot;code&quot;:200,
-  &quot;status&quot;: &quot;success&quot;,
-  &quot;message&quot;: &quot;Call successful&quot;,
-  &quot;data&quot;: {
-    &quot;status&quot;: &quot;success&quot;,
-    &quot;message&quot;: &quot;OK&quot;,
-    &quot;code&quot;: 200
+<p>Our API responses are JSON objects with the results (or error) assigned to the <code>data</code> property. Our structure liberally adds a few extra properties to the <a href="https://labs.omniti.com/labs/jsend">JSend</a> &quot;specs&quot;:</p>
+<pre class="highlight tab tab-http--shell"><code>{
+  "<span class="hljs-attribute">program"</span>: "ox",
+  "<span class="hljs-attribute">version"</span>: "0.0.1",
+  "<span class="hljs-attribute">datetime"</span>: "2017-10-11T13:10:11.669Z",
+  "<span class="hljs-attribute">timestamp"</span>: 1507727411669,
+  "<span class="hljs-attribute">code":200,
+  "status"</span>: "success",
+  "<span class="hljs-attribute">message"</span>: "Call successful",
+  "<span class="hljs-attribute">data"</span>: {
+    "<span class="hljs-attribute">status"</span>: "success",
+    "<span class="hljs-attribute">message"</span>: "OK",
+    "<span class="hljs-attribute">code"</span>: 200
   }
 }
 </code></pre>
-<h2 id="response-data-success">response.data success</h2>
-<p>If the request succeed with a <code>200</code>, the <code>data</code> property will be populated according to the HTTP operation requested by the client and the number of entities</p>
-<pre class="highlight"><code>POST
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
-
-READ
- one:
-  {entity}
- many:
-  [{entity},{entity}]
-
-UPDATE
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
-
-DELETE
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
-</code></pre>
-<h2 id="response-data-failure">response.data failure</h2>
-<p>If the request fails witha <code>4xx</code> or <code>5xx</code>, the <code>data</code> property will be be the same regardless of the HTTP operation but will change depending on the number of entities</p>
-<pre class="highlight"><code>one:
- {id: '123', message: 'formatted error text blah blah'}
-many:
- [{id: '123', message: 'formatted error text blah blah'}, {id: '123', message: 'formatted error text blah blah'}]
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>program</code></td>
+<td>The name of the API</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>The version of the API</td>
+</tr>
+<tr>
+<td><code>datetime</code></td>
+<td>When the response was sent (i.e. <code>_new Date</code>)</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>When the response was sent (i.e. <code>Date.now()</code>)</td>
+</tr>
+<tr>
+<td><code>code</code></td>
+<td>HTTP status of the response</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><em>success</em> or <em>failure</em> or <em>error</em></td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Additional API message</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>The payload or the response</td>
+</tr>
+</tbody>
+</table>
+<h2 id="success">Success</h2>
+<p>If the request succeed with a <code>200</code>, the response <code>data</code> property will be populated according to the HTTP operation requested by the client and the number of entities</p>
+<table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Scope</th>
+<th>Type</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>Single</td>
+<td>Object</td>
+<td>{id, message}</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Collection</td>
+<td>Array</td>
+<td>[{id, message}]</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>Single</td>
+<td>Object</td>
+<td>{entity}</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>Collection</td>
+<td>Array</td>
+<td>[{entity}]</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>Single</td>
+<td>Object</td>
+<td>{id, message}</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>Collection</td>
+<td>Array</td>
+<td>[{id, message}]</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Single</td>
+<td>Object</td>
+<td>{id, message}</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Collection</td>
+<td>Array</td>
+<td>[{id, message}]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="failure">Failure</h2>
+<p>If the request fails witha <code>4xx</code> or <code>5xx</code>, the response <code>data</code> property will be be the same regardless of the HTTP operation but will change depending on the number of entities</p>
+<table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Scope</th>
+<th>Type</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>Single</td>
+<td>Object</td>
+<td>{id, message}</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Collection</td>
+<td>Array</td>
+<td>[{id, message}]</td>
+</tr>
+</tbody>
+</table>
 <h1 id="authentication">Authentication</h1>
 <p>For all API request, <code>ox</code> expects a JWT token to be included in a header that looks like the following:</p>
-<pre class="highlight"><code>Authorization: bearer [jwt]
+<pre class="highlight"><code>Authorization: bearer {jwt}
 </code></pre>
 <aside class="notice">
-You must replace <code>[jwt]</code> with your client API key
+You must replace <code>{jwt}</code> with your client API key
 </aside>
-<p>Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happen in three steps:</p>
+<p>The <code>org</code> entity is are the root of our authentication scheme. At this time, only Signal can create new <code>org</code>. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:</p>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Owner</th>
+<th>Tier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Org</td>
+<td>Signal Biometrics</td>
+<td>Tier 0</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Org</td>
+<td>Tier 1</td>
+</tr>
+<tr>
+<td>Beacon</td>
+<td>Org</td>
+<td>Organization</td>
+</tr>
+<tr>
+<td>Sensor</td>
+<td>Client</td>
+<td>Tier 2</td>
+</tr>
+<tr>
+<td>Event</td>
+<td>Client</td>
+<td>Tier 2</td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 1. create a client</span>
+curl -X <span class="hljs-string">"POST"</span> -H <span class="hljs-string">"Content-Type: application/json"</span> <span class="hljs-_">-d</span> <span class="hljs-string">'{client_entity_payload}'</span> https://{url}/client
+<span class="hljs-comment"># returns response.body.data.client_api_key</span>
+</code></pre>
+<pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 2. retrieve a token</span>
+curl https://{url}/client/token/{parent_org_id}/{client_id}/{client_api_key}
+<span class="hljs-comment"># returns response.body.data.token</span>
+</code></pre>
+<pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 3. Authorize its request with a header </span>
+curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://{url}/{endpoint}
+</code></pre>
+<p>Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happens in three steps:</p>
 <ol>
-<li>A user adds a client through the <code>/client</code> endpoint;</li>
-<li>The response will contain an plaintext API key;</li>
-<li>The client uses this API key to get a <code>json web token</code> by hitting <code>/client/token/[parentorg]/[clientid]/[clientapikey]</code>;</li>
-<li>The client includes the token in its authorization header with every subsequent request;</li>
+<li>An <code>org</code> create a client and get an API key</li>
+<li>The client uses this API key to retrieve a token</li>
+<li>The client uses this token to authenticate its requests</li>
 </ol>
-<pre class="highlight tab tab-html"><code>POST /client/tada
-
-
-</code></pre>
-<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># With shell, you can just pass the correct header with each request</span>
-curl <span class="hljs-string">"api_endpoint_here"</span>
-  -H <span class="hljs-string">"Authorization: meowmeowmeow"</span>
-
-
-</code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> kittn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kittn'</span>);
-<span class="hljs-keyword">let</span> api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>);
-
-
-</code></pre>
+<p>The token expires, but the client do not. Typically, clients will be devices or applications and will be given the cleartext <code>client_api_key</code> as en environement variable or as part of a configuration object</p>
 <h1 id="beacon">Beacon</h1>
 <h1 id="client">Client</h1>
 <h1 id="event">Event</h1>
@@ -4723,10 +4881,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
             
               
                 <a href="#" data-language-name="http">HTTP</a>
-              
-            
-              
-                <a href="#" data-language-name="javascript">Javascript</a>
               
             
           </div>

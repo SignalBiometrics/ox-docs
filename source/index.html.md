@@ -3,7 +3,6 @@ title: ox API 0.1.0
 language_tabs:
   - shell: Shell
   - http: HTTP
-  - javascript: Javascript
 toc_footers: []
 includes:
   - errors
@@ -16,19 +15,41 @@ headingLevel: 2
 
 # Introduction
 
-Welcome to the Signal Biometrics `ox` API documentation. This should provide you with all the info you need to interact with our back-end
+Welcome to the Signal Biometrics `ox` API documentation. This should provide you with all the info you need to collect, store, retrieve and expose time series data
 
-Our base URL is [https://api.signal.bio/](https://api.signal.bio)
+From a high-level perspective, the API allows you to apply CRUD operations to entities using the RESTful connector that you want. The entities you can interact with are:
+ - Beacon (an emitting device)
+ - Client (an API client)
+ - Event (a datapoint)
+ - Org (an organisation)
+ - Sensor (a sensing device)
 
-You can report issues at [api.support@signal.bio](mailto:api.support@signal.bio)
+Our production URL is  
+[https://api.signal.bio/](https://api.signal.bio)
+
+Our staging URL is  
+[https://api.stage.signal.bio/](https://api.stage.signal.bio)
+
+You can report issues at  
+[api.support@signal.bio](mailto:api.support@signal.bio)
+
+# Requests
+
+Almost all requests _need_ to include a valid JWT token. See the [authentication](#authentication) section for more details about this
+
+This depends on the endpoint, but as a general rule if the request du not create or modify entities, you will not need to include a header (beside `Authorization`). If you are passing along a JSON payload however, remember to set the `Content-type` header as well
+
+|Header|Content|
+|-|-|
+|Authorization|bearer _{jwt}_|
+|Content-type|application/json|
+
 
 # Responses
 
-## Structure
+Our API responses are JSON objects with the results (or error) assigned to the `data` property. Our structure liberally adds a few extra properties to the [JSend](https://labs.omniti.com/labs/jsend) "specs":
 
-Our API responses are JSON objects with the results (or error) assigned to the `data` property. The structure loosely follows the [JSend](https://labs.omniti.com/labs/jsend) specs
-
-```
+```http--shell
 {
   "program": "ox",
   "version": "0.0.1",
@@ -45,86 +66,87 @@ Our API responses are JSON objects with the results (or error) assigned to the `
 }
 ```
 
-## response.data success
+|Property|Usage|
+|-|-|
+|`program`|The name of the API|
+|`version`|The version of the API|
+|`datetime`|When the response was sent (i.e. `_new Date`)|
+|`timestamp`|When the response was sent (i.e. `Date.now()`)|
+|`code`|HTTP status of the response|
+|`status`|_success_ or _failure_ or _error_|
+|`message`|Additional API message|
+|`data`|The payload or the response|
 
-If the request succeed with a `200`, the `data` property will be populated according to the HTTP operation requested by the client and the number of entities
 
-```
-POST
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+## Success
 
-READ
- one:
-  {entity}
- many:
-  [{entity},{entity}]
+If the request succeed with a `200`, the response `data` property will be populated according to the HTTP operation requested by the client and the number of entities
 
-UPDATE
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
+|Verb|Scope|Type|Content|
+|-|-|-|-|
+|POST|Single|Object|{id, message}|
+|POST|Collection|Array|[{id, message}]|
+|GET|Single|Object|{entity}|
+|GET|Collection|Array|[{entity}]|
+|PATCH|Single|Object|{id, message}|
+|PATCH|Collection|Array|[{id, message}]|
+|DELETE|Single|Object|{id, message}|
+|DELETE|Collection|Array|[{id, message}]|
 
-DELETE
- one:
-  {id: '123', message: 'success'}
- many:
-  [{id: '123', message: 'success'}, {id: '456', message: 'success'}]
-```
+## Failure
 
-## response.data failure
+If the request fails witha `4xx` or `5xx`, the response `data` property will be be the same regardless of the HTTP operation but will change depending on the number of entities
 
-If the request fails witha `4xx` or `5xx`, the `data` property will be be the same regardless of the HTTP operation but will change depending on the number of entities
-
-```
-one:
- {id: '123', message: 'formatted error text blah blah'}
-many:
- [{id: '123', message: 'formatted error text blah blah'}, {id: '123', message: 'formatted error text blah blah'}]
-```
+|Verb|Scope|Type|Content|
+|-|-|-|-|
+|\*|Single|Object|{id, message}|
+|\*|Collection|Array|[{id, message}]|
 
 # Authentication
 
 For all API request, `ox` expects a JWT token to be included in a header that looks like the following:
 
 ```
-Authorization: bearer [jwt]
+Authorization: bearer {jwt}
 ```
 
 <aside class="notice">
-You must replace <code>[jwt]</code> with your client API key
+You must replace <code>{jwt}</code> with your client API key
 </aside>
 
-Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happen in three steps:
-1. A user adds a client through the `/client` endpoint;
-1. The response will contain an plaintext API key;
-1. The client uses this API key to get a `json web token` by hitting `/client/token/[parentorg]/[clientid]/[clientapikey]`;
-1. The client includes the token in its authorization header with every subsequent request;
 
+The `org` entity is are the root of our authentication scheme. At this time, only Signal can create new `org`. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:
+|Entity|Owner|Tier|
+|-|-|-|
+|Org|Signal Biometrics|Tier 0|
+|Client|Org|Tier 1|
+|Beacon|Org|Organization|Tier 1|
+|Sensor|Client|Tier 2|
+|Event|Client|Tier 2|
 
-```html
-POST /client/tada
-
-
+```shell--http
+# 1. create a client
+curl -X "POST" -H "Content-Type: application/json" -d '{client_entity_payload}' https://{url}/client
+# returns response.body.data.client_api_key
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-
-
+```shell--http
+# 2. retrieve a token
+curl https://{url}/client/token/{parent_org_id}/{client_id}/{client_api_key}
+# returns response.body.data.token
 ```
 
-```javascript
-const kittn = require('kittn');
-let api = kittn.authorize('meowmeowmeow');
-
-
+```shell--http
+# 3. Authorize its request with a header 
+curl -H "Authorization: bearer {jwt}" https://{url}/{endpoint}
 ```
+
+Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happens in three steps:
+1. An `org` create a client and get an API key
+1. The client uses this API key to retrieve a token
+1. The client uses this token to authenticate its requests
+
+The token expires, but the client do not. Typically, clients will be devices or applications and will be given the cleartext `client_api_key` as en environement variable or as part of a configuration object
 
 # Beacon
 # Client
