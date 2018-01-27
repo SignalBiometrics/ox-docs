@@ -384,7 +384,6 @@ under the License.
   line-height: 1.5; }
 
 .content code {
-  word-break: break-all;
   hyphens: auto; }
 
 @font-face {
