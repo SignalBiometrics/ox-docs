@@ -303,7 +303,7 @@ window.onpopstate = function() {
               <ul class="toc-list-h2">
                 
                   <li>
-                    <a href="#tocSorder" class="toc-h2 toc-link" data-title="Order">Order</a>
+                    <a href="#beacon-schema" class="toc-h2 toc-link" data-title="Beacon">Beacon</a>
                     
                   </li>
                 
@@ -4480,15 +4480,45 @@ System.out.println(response.toString());
 This operation does not require authentication
 </aside>
 <h1 id="schemas">Schemas</h1>
-<h2 id="tocSorder">Order</h2>
-<p><a id="schemaorder"></a></p>
+<p>Schemas <strong>might not</strong> be identical our internal representation (i.e. models) of the entities or even how entities are returned when queried. To illustrate this, we are including examples payload that should be passed with POST requests (<em>Request Payload</em>), and what is the expected results from GET requests (<em>Response Payload</em>)</p>
+<p>There is also table with <em>Appended Values</em> and <em>Modified Values</em>. <em>Appended Values</em> are added during the creation or modification of entities, while <em>Modified Values</em> are changed on the fly, for instance when casting a type into another</p>
+<aside class="notice">Remember that the <i>Response Payload</i> will be in <code>response.data</code></aside>
+<h2 id="beacon-schema">Beacon</h2>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
 <pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
-  <span class="hljs-attr">"petId"</span>: <span class="hljs-number">0</span>,
-  <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">0</span>,
-  <span class="hljs-attr">"shipDate"</span>: <span class="hljs-string">"2017-12-19T07:25:11Z"</span>,
-  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"placed"</span>,
-  <span class="hljs-attr">"complete"</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {
+    <span class="hljs-attr">"foo"</span>: <span class="hljs-string">"bar"</span>
+  },
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+}
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {
+    <span class="hljs-attr">"foo"</span>: <span class="hljs-string">"bar"</span>
+  },
+  <span class="hljs-attr">"parent_org"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"1234123412341234"</span>
+    ]
+  },
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
 }
 </code></pre>
 <h3 id="properties">Properties</h3>
@@ -4503,63 +4533,80 @@ This operation does not require authentication
 </thead>
 <tbody>
 <tr>
-<td>id</td>
-<td>integer(int64)</td>
-<td>false</td>
-<td>No description</td>
+<td>parent_org</td>
+<td>Integer</td>
+<td>true</td>
+<td>The id of this beacon's parent org</td>
 </tr>
 <tr>
-<td>petId</td>
-<td>integer(int64)</td>
-<td>false</td>
-<td>No description</td>
+<td>beacon_id</td>
+<td>String</td>
+<td>true</td>
+<td>Custom local id of this device</td>
 </tr>
 <tr>
-<td>quantity</td>
-<td>integer(int32)</td>
-<td>false</td>
-<td>No description</td>
+<td>beacon_env</td>
+<td>String</td>
+<td>true</td>
+<td>Device OS or model (including version)</td>
 </tr>
 <tr>
-<td>shipDate</td>
-<td>string(date-time)</td>
-<td>false</td>
-<td>No description</td>
+<td>beacon_type</td>
+<td>String</td>
+<td>true</td>
+<td>Device type</td>
 </tr>
 <tr>
-<td>status</td>
-<td>string</td>
-<td>false</td>
-<td>Order Status</td>
+<td>beacon_version</td>
+<td>String</td>
+<td>true</td>
+<td>Version number of the Signal app</td>
 </tr>
 <tr>
-<td>complete</td>
-<td>boolean</td>
+<td>beacon_last_event</td>
+<td>Object(<a href="#event-schema">Event</a>)</td>
 <td>false</td>
-<td>No description</td>
+<td>The last event captured by this beacon</td>
 </tr>
 </tbody>
 </table>
-<h4 id="enumerated-values">Enumerated Values</h4>
+<h3 id="appended-values">Appended Values</h3>
 <table>
 <thead>
 <tr>
 <th>Property</th>
-<th>Value</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>status</td>
-<td>placed</td>
+<td>id</td>
+<td>Id of the entity</td>
 </tr>
 <tr>
-<td>status</td>
-<td>approved</td>
+<td>created_at</td>
+<td>When the entity was created</td>
 </tr>
 <tr>
-<td>status</td>
-<td>delivered</td>
+<td>modified_at</td>
+<td>When the entity was last modified</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td>Object(Key)</td>
 </tr>
 </tbody>
 </table>

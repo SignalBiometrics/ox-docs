@@ -3940,46 +3940,77 @@ This operation does not require authentication
 
 # Schemas
 
+Schemas **might not** be identical our internal representation (i.e. models) of the entities or even how entities are returned when queried. To illustrate this, we are including examples payload that should be passed with POST requests (_Request Payload_), and what is the expected results from GET requests (_Response Payload_)
 
-<h2 id="tocSorder">Order</h2>
+There is also table with _Appended Values_ and _Modified Values_. _Appended Values_ are added during the creation or modification of entities, while _Modified Values_ are changed on the fly, for instance when casting a type into another
 
+<aside class="notice">Remember that the <i>Response Payload</i> will be in <code>response.data</code></aside>
 
-<a id="schemaorder"></a>
+<h2 id="beacon-schema">Beacon</h2>
 
+> Request Payload
 
 ```json
 {
-  "id": 0,
-  "petId": 0,
-  "quantity": 0,
-  "shipDate": "2017-12-19T07:25:11Z",
-  "status": "placed",
-  "complete": false
+  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+  "beacon_env": "iOS 9.0",
+  "beacon_type": "iphone",
+  "beacon_version": "1.1.1/34",
+  "beacon_last_event": {
+    "foo": "bar"
+  },
+  "parent_org": 1234123412341234,
 }
 ```
 
+> Return Payload
+
+```json
+{
+  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+  "beacon_env": "iOS 9.0",
+  "beacon_type": "iphone",
+  "beacon_version": "1.1.1/34",
+  "beacon_last_event": {
+    "foo": "bar"
+  },
+  "parent_org": {
+    "name": "1234123412341234",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "1234123412341234"
+    ]
+  },
+  "created_at": "2018-01-16T23:25:25.685Z",
+  "modified_at": "2018-05-17T11:36:55.907Z",
+}
+```
 
 ### Properties
 
-
 |Name|Type|Required|Description|
-|---|---|---|---|
-|id|integer(int64)|false|No description|
-|petId|integer(int64)|false|No description|
-|quantity|integer(int32)|false|No description|
-|shipDate|string(date-time)|false|No description|
-|status|string|false|Order Status|
-|complete|boolean|false|No description|
+|-|-|-|-|
+|parent_org|Integer|true|The id of this beacon's parent org|
+|beacon_id|String|true|Custom local id of this device|
+|beacon_env|String|true|Device OS or model (including version)|
+|beacon_type|String|true|Device type| 
+|beacon_version|String|true|Version number of the Signal app|
+|beacon_last_event|Object([Event](#event-schema))|false|The last event captured by this beacon|
 
+### Appended Values
 
-#### Enumerated Values
+|Property|Description|
+|-|-|
+|id|Id of the entity|
+|created_at|When the entity was created|
+|modified_at|When the entity was last modified|
 
+### Modified Values
 
-|Property|Value|
-|---|---|
-|status|placed|
-|status|approved|
-|status|delivered|
+|Property|From|To|
+|-|-|-|
+|parent_org|Integer|Object(Key)|
 
 
 <h2 id="tocScategory">Category</h2>
