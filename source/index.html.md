@@ -13,6 +13,7 @@ headingLevel: 2
 
 ---
 
+
 # Introduction
 
 Welcome to the Signal Biometrics `ox` API documentation. This should provide you with all the info you need to collect, store, retrieve and expose time series data
@@ -33,10 +34,12 @@ Our staging URL is
 You can report issues at  
 [api.support@signal.bio](mailto:api.support@signal.bio)
 
+
 # Requests
 
 Almost all requests _need_ to include a valid JWT token. See the [authentication](#authentication) section for more details about this
 
+## Headers
 This depends on the endpoint, but as a general rule if the request du not create or modify entities, you will not need to include a header (beside `Authorization`). If you are passing along a JSON payload however, remember to set the `Content-type` header as well
 
 |Header|Content|
@@ -44,12 +47,20 @@ This depends on the endpoint, but as a general rule if the request du not create
 |Authorization|bearer _{jwt}_|
 |Content-type|application/json|
 
+## Payload & params
+As a general rule, endpoints that create a single entity will expect a JSON, while those creating many entities will expect an array of these objects
+
+Endpoints that modify entities will either require an `id` URL parameter and a payload (single), or a JSON consisting of the `ids` to modify as properties and their changes as an object. Have a look at the [updateManyBeacon](updatemanybeacon) for an example of this
+
+Endpoints that do not require a payload (read & delete operations) will only require parameters passed in the URL, with multiple values separated by commas
 
 # Responses
 
 Our API responses are JSON objects with the results (or error) assigned to the `data` property. Our structure liberally adds a few extra properties to the [JSend](https://labs.omniti.com/labs/jsend) "specs":
 
-```http--shell
+> Response JSON
+
+```json
 {
   "program": "ox",
   "version": "0.0.1",
@@ -77,7 +88,6 @@ Our API responses are JSON objects with the results (or error) assigned to the `
 |`message`|Additional API message|
 |`data`|The payload or the response|
 
-
 ## Success
 
 If the request succeed with a `200`, the response `data` property will be populated according to the HTTP operation requested by the client and the number of entities
@@ -102,43 +112,43 @@ If the request fails witha `4xx` or `5xx`, the response `data` property will be 
 |\*|Single|Object|{id, message}|
 |\*|Collection|Array|[{id, message}]|
 
+
 # Authentication
 
-For all API request, `ox` expects a JWT token to be included in a header that looks like the following:
+> Header example
 
 ```
-Authorization: bearer {jwt}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-<aside class="notice">
-You must replace <code>{jwt}</code> with your client API key
-</aside>
-
+For all API request, `ox` expects a JWT token to be included in a header that looks like the one on the right
 
 The `org` entity is are the root of our authentication scheme. At this time, only Signal can create new `org`. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:
 |Entity|Owner|Tier|
 |-|-|-|
 |Org|Signal Biometrics|Tier 0|
 |Client|Org|Tier 1|
-|Beacon|Org|Organization|Tier 1|
+|Beacon|Org|Tier 1|
 |Sensor|Client|Tier 2|
 |Event|Client|Tier 2|
 
+> Code samples
+
 ```shell--http
 # 1. create a client
-curl -X "POST" -H "Content-Type: application/json" -d '{client_entity_payload}' https://{url}/client
+curl -X POST -H "Content-Type: application/json" -d '{client_entity_payload}' -H "{headers}" https://api.signal.bio/client
 # returns response.body.data.client_api_key
 ```
 
 ```shell--http
 # 2. retrieve a token
-curl https://{url}/client/token/{parent_org_id}/{client_id}/{client_api_key}
+curl https://api.signal.bio/client/token/{parent_org_id}/{client_id}/{client_api_key}
 # returns response.body.data.token
 ```
 
 ```shell--http
-# 3. Authorize its request with a header 
-curl -H "Authorization: bearer {jwt}" https://{url}/{endpoint}
+# 3. authorize a request with a header 
+curl -H "Authorization: bearer {jwt}" https://api.signal.bio/{endpoint}
 ```
 
 Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happens in three steps:
@@ -146,234 +156,147 @@ Since the API is meant to be accessed programatically, we are not relying on a u
 1. The client uses this API key to retrieve a token
 1. The client uses this token to authenticate its requests
 
-The token expires, but the client do not. Typically, clients will be devices or applications and will be given the cleartext `client_api_key` as en environement variable or as part of a configuration object
+The token expires, but the client do not. Typically, clients will be devices, user accounts interfaces or applications and will be given the cleartext `client_api_key` as en environement variable or as part of a configuration object
+
+<aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
+<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
+
 
 # Beacon
+
+`/beacon`
+
+Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database
+
+## addOneBeacon
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/client -H "{headers}"
+```
+
+```http
+POST https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /beacon`
+
+*Add a new beacon*
+
+> Body parameter
+
+```json
+{
+  "parent_org": 1234123412341234,
+  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+  "beacon_env": "iOS 9.0",
+  "beacon_type": "iphone",
+  "beacon_version": "1.1.1/34",
+  "beacon_last_event": {
+      "event_sensor": 2345234523452345,
+      "event_reading": 105,
+      "event_type": "heart_rate",
+      "event_timestamp": 1509108148219
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Beacon](#beacon-schema)|Beacon object that needs to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
+
+## addManyBeacon
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/client -H "{headers}"
+```
+
+```http
+POST https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /beacon`
+
+*Add many beacons*
+
+> Body parameter
+
+```json
+[{
+  "parent_org": 1234123412341234,
+  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+  "beacon_env": "iOS 9.0",
+  "beacon_type": "iphone",
+  "beacon_version": "1.1.1/34",
+  "beacon_last_event": {
+      "event_sensor": 2345234523452345,
+      "event_reading": 105,
+      "event_type": "heart_rate",
+      "event_timestamp": 1509108148219
+  }
+},
+{
+  "parent_org": 4321432143214321,
+  "beacon_id": "06D44FE3-014D-B0FE-A81F-14037E8701AA",
+  "beacon_env": "iOS 8.0",
+  "beacon_type": "iphone",
+  "beacon_version": "2.1.1",
+  "beacon_last_event": {}
+}]
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Beacons](#beacon-schema)|Array of beacon objects that need to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
+
+## getOneBeacon
+## getManyBeacon
+
+## deleteOneBeacon
+## deleteManyBeacon
+
+## updateOneBeacon
+## updateManyBeacon
+
 # Client
 # Event
 # Org
 # Sensor
 
 # (Examples)
-## addPet
-<a id="opIdaddPet"></a>
-
-
-> Code samples
-
-
-```shell
-# You can also use wget
-curl -X POST http://petstore.swagger.io/v2/pet \
-  -H 'Content-Type: application/json'
-
-
-```
-
-
-```http
-POST http://petstore.swagger.io/v2/pet HTTP/1.1
-Host: petstore.swagger.io
-Content-Type: application/json
-
-
-```
-
-
-```javascript
-var headers = {
-  'Content-Type':'application/json'
-
-
-};
-
-
-$.ajax({
-  url: 'http://petstore.swagger.io/v2/pet',
-  method: 'post',
-
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-
-```
-
-
-```javascript--nodejs
-const request = require('node-fetch');
-const inputBody = '{
-  "id": 0,
-  "category": {
-    "id": 0,
-    "name": "string"
-  },
-  "name": "doggie",
-  "photoUrls": [
-    "string"
-  ],
-  "tags": [
-    {
-      "id": 0,
-      "name": "string"
-    }
-  ],
-  "status": "available"
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-
-};
-
-
-fetch('http://petstore.swagger.io/v2/pet',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-
-```
-
-
-```ruby
-require 'rest-client'
-require 'json'
-
-
-headers = {
-  'Content-Type' => 'application/json'
-}
-
-
-result = RestClient.post 'http://petstore.swagger.io/v2/pet',
-  params: {
-  }, headers: headers
-
-
-p JSON.parse(result)
-
-
-```
-
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
-
-
-r = requests.post('http://petstore.swagger.io/v2/pet', params={
-
-
-}, headers = headers)
-
-
-print r.json()
-
-
-```
-
-
-```java
-URL obj = new URL("http://petstore.swagger.io/v2/pet");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-
-```
-
-
-`POST /pet`
-
-
-*Add a new pet to the store*
-
-
-> Body parameter
-
-
-```json
-{
-  "id": 0,
-  "category": {
-    "id": 0,
-    "name": "string"
-  },
-  "name": "doggie",
-  "photoUrls": [
-    "string"
-  ],
-  "tags": [
-    {
-      "id": 0,
-      "name": "string"
-    }
-  ],
-  "status": "available"
-}
-```
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<Pet>
-  <id>0</id>
-  <category>
-    <id>0</id>
-    <name>string</name>
-  </category>
-  <name>doggie</name>
-  <photoUrls>string</photoUrls>
-  <tags>
-    <id>0</id>
-    <name>string</name>
-  </tags>
-  <status>available</status>
-</Pet>
-```
-
-
-<h3 id="addPet-parameters">Parameters</h3>
-
-
-|Parameter|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[Pet](#schemapet)|true|Pet object that needs to be added to the store|
-
-
-<h3 id="addPet-responses">Responses</h3>
-
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|405|[Method Not Allowed](https://tools.ietf.org/html/rfc7231#section-6.5.5)|Invalid input|None|
-
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-petstore_auth ( Scopes: write:pets read:pets )
-</aside>
-
 
 ## updatePet
 

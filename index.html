@@ -84,6 +84,20 @@ window.onpopstate = function() {
           <li>
             <a href="#requests" class="toc-h1 toc-link" data-title="Requests">Requests</a>
             
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#headers" class="toc-h2 toc-link" data-title="Headers">Headers</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#payload--amp--params" class="toc-h2 toc-link" data-title="Payload &amp; params">Payload &amp; params</a>
+                    
+                  </li>
+                
+              </ul>
+            
           </li>
         
           <li>
@@ -113,6 +127,50 @@ window.onpopstate = function() {
           <li>
             <a href="#beacon" class="toc-h1 toc-link" data-title="Beacon">Beacon</a>
             
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#addonebeacon" class="toc-h2 toc-link" data-title="addOneBeacon">addOneBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#addmanybeacon" class="toc-h2 toc-link" data-title="addManyBeacon">addManyBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#getonebeacon" class="toc-h2 toc-link" data-title="getOneBeacon">getOneBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#getmanybeacon" class="toc-h2 toc-link" data-title="getManyBeacon">getManyBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#deleteonebeacon" class="toc-h2 toc-link" data-title="deleteOneBeacon">deleteOneBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#deletemanybeacon" class="toc-h2 toc-link" data-title="deleteManyBeacon">deleteManyBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#updateonebeacon" class="toc-h2 toc-link" data-title="updateOneBeacon">updateOneBeacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#updatemanybeacon" class="toc-h2 toc-link" data-title="updateManyBeacon">updateManyBeacon</a>
+                    
+                  </li>
+                
+              </ul>
+            
           </li>
         
           <li>
@@ -139,11 +197,6 @@ window.onpopstate = function() {
             <a href="#-examples-" class="toc-h1 toc-link" data-title="(Examples)">(Examples)</a>
             
               <ul class="toc-list-h2">
-                
-                  <li>
-                    <a href="#addpet" class="toc-h2 toc-link" data-title="addPet">addPet</a>
-                    
-                  </li>
                 
                   <li>
                     <a href="#updatepet" class="toc-h2 toc-link" data-title="updatePet">updatePet</a>
@@ -317,6 +370,7 @@ window.onpopstate = function() {
 <a href="mailto:api.support@signal.bio">api.support@signal.bio</a></p>
 <h1 id="requests">Requests</h1>
 <p>Almost all requests <em>need</em> to include a valid JWT token. See the <a href="#authentication">authentication</a> section for more details about this</p>
+<h2 id="headers">Headers</h2>
 <p>This depends on the endpoint, but as a general rule if the request du not create or modify entities, you will not need to include a header (beside <code>Authorization</code>). If you are passing along a JSON payload however, remember to set the <code>Content-type</code> header as well</p>
 <table>
 <thead>
@@ -336,20 +390,27 @@ window.onpopstate = function() {
 </tr>
 </tbody>
 </table>
+<h2 id="payload--amp--params">Payload &amp; params</h2>
+<p>As a general rule, endpoints that create a single entity will expect a JSON, while those creating many entities will expect an array of these objects</p>
+<p>Endpoints that modify entities will either require an <code>id</code> URL parameter and a payload (single), or a JSON consisting of the <code>ids</code> to modify as properties and their changes as an object. Have a look at the <a href="updatemanybeacon">updateManyBeacon</a> for an example of this</p>
+<p>Endpoints that do not require a payload (read &amp; delete operations) will only require parameters passed in the URL, with multiple values separated by commas</p>
 <h1 id="responses">Responses</h1>
 <p>Our API responses are JSON objects with the results (or error) assigned to the <code>data</code> property. Our structure liberally adds a few extra properties to the <a href="https://labs.omniti.com/labs/jsend">JSend</a> &quot;specs&quot;:</p>
-<pre class="highlight tab tab-http--shell"><code>{
-  "<span class="hljs-attribute">program"</span>: "ox",
-  "<span class="hljs-attribute">version"</span>: "0.0.1",
-  "<span class="hljs-attribute">datetime"</span>: "2017-10-11T13:10:11.669Z",
-  "<span class="hljs-attribute">timestamp"</span>: 1507727411669,
-  "<span class="hljs-attribute">code":200,
-  "status"</span>: "success",
-  "<span class="hljs-attribute">message"</span>: "Call successful",
-  "<span class="hljs-attribute">data"</span>: {
-    "<span class="hljs-attribute">status"</span>: "success",
-    "<span class="hljs-attribute">message"</span>: "OK",
-    "<span class="hljs-attribute">code"</span>: 200
+<blockquote>
+<p>Response JSON</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.1"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2017-10-11T13:10:11.669Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1507727411669</span>,
+  <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"message"</span>: <span class="hljs-string">"OK"</span>,
+    <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>
   }
 }
 </code></pre>
@@ -484,12 +545,12 @@ window.onpopstate = function() {
 </tbody>
 </table>
 <h1 id="authentication">Authentication</h1>
-<p>For all API request, <code>ox</code> expects a JWT token to be included in a header that looks like the following:</p>
-<pre class="highlight"><code>Authorization: bearer {jwt}
+<blockquote>
+<p>Header example</p>
+</blockquote>
+<pre class="highlight"><code>Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 </code></pre>
-<aside class="notice">
-You must replace <code>{jwt}</code> with your client API key
-</aside>
+<p>For all API request, <code>ox</code> expects a JWT token to be included in a header that looks like the one on the right</p>
 <p>The <code>org</code> entity is are the root of our authentication scheme. At this time, only Signal can create new <code>org</code>. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:</p>
 <table>
 <thead>
@@ -513,7 +574,7 @@ You must replace <code>{jwt}</code> with your client API key
 <tr>
 <td>Beacon</td>
 <td>Org</td>
-<td>Organization</td>
+<td>Tier 1</td>
 </tr>
 <tr>
 <td>Sensor</td>
@@ -527,16 +588,19 @@ You must replace <code>{jwt}</code> with your client API key
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
 <pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 1. create a client</span>
-curl -X <span class="hljs-string">"POST"</span> -H <span class="hljs-string">"Content-Type: application/json"</span> <span class="hljs-_">-d</span> <span class="hljs-string">'{client_entity_payload}'</span> https://{url}/client
+curl -X POST -H <span class="hljs-string">"Content-Type: application/json"</span> <span class="hljs-_">-d</span> <span class="hljs-string">'{client_entity_payload}'</span> -H <span class="hljs-string">"{headers}"</span> https://api.signal.bio/client
 <span class="hljs-comment"># returns response.body.data.client_api_key</span>
 </code></pre>
 <pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 2. retrieve a token</span>
-curl https://{url}/client/token/{parent_org_id}/{client_id}/{client_api_key}
+curl https://api.signal.bio/client/token/{parent_org_id}/{client_id}/{client_api_key}
 <span class="hljs-comment"># returns response.body.data.token</span>
 </code></pre>
-<pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 3. Authorize its request with a header </span>
-curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://{url}/{endpoint}
+<pre class="highlight tab tab-shell--http"><code><span class="hljs-comment"># 3. authorize a request with a header </span>
+curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://api.signal.bio/{endpoint}
 </code></pre>
 <p>Since the API is meant to be accessed programatically, we are not relying on a user/password scheme to grant access to our ressources. Rather, the authentication of a client happens in three steps:</p>
 <ol>
@@ -544,188 +608,49 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://{
 <li>The client uses this API key to retrieve a token</li>
 <li>The client uses this token to authenticate its requests</li>
 </ol>
-<p>The token expires, but the client do not. Typically, clients will be devices or applications and will be given the cleartext <code>client_api_key</code> as en environement variable or as part of a configuration object</p>
+<p>The token expires, but the client do not. Typically, clients will be devices, user accounts interfaces or applications and will be given the cleartext <code>client_api_key</code> as en environement variable or as part of a configuration object</p>
+<aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
+<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
 <h1 id="beacon">Beacon</h1>
-<h1 id="client">Client</h1>
-<h1 id="event">Event</h1>
-<h1 id="org">Org</h1>
-<h1 id="sensor">Sensor</h1>
-<h1 id="-examples-">(Examples)</h1>
-<h2 id="addpet">addPet</h2>
-<p><a id="opIdaddPet"></a></p>
+<p><code>/beacon</code></p>
+<p>Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database</p>
+<h2 id="addonebeacon">addOneBeacon</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
-curl -X POST http://petstore.swagger.io/v2/pet \
-  -H <span class="hljs-string">'Content-Type: application/json'</span>
-
-
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/client -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">http://petstore.swagger.io/v2/pet</span> HTTP/1.1
-<span class="hljs-attribute">Host</span>: petstore.swagger.io
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/client HTTPS/1.1
+Host</span>: api.signal.bio
 <span class="hljs-attribute">Content-Type</span>: application/json
-
-<span class="undefined">
-</span></code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
-  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>
-
-
-};
-
-
-$.ajax({
-  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://petstore.swagger.io/v2/pet'</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
-
-
-  <span class="hljs-attr">headers</span>: headers,
-  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
-  }
-})
-
-
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
-<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
-<span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
-  "id": 0,
-  "category": {
-    "id": 0,
-    "name": "string"
-  },
-  "name": "doggie",
-  "photoUrls": [
-    "string"
-  ],
-  "tags": [
-    {
-      "id": 0,
-      "name": "string"
-    }
-  ],
-  "status": "available"
-}'</span>;
-<span class="hljs-keyword">const</span> headers = {
-  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>
-
-
-};
-
-
-fetch(<span class="hljs-string">'http://petstore.swagger.io/v2/pet'</span>,
-{
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">body</span>: inputBody,
-  <span class="hljs-attr">headers</span>: headers
-})
-.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
-    <span class="hljs-keyword">return</span> res.json();
-}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(body);
-});
-
-
-</code></pre>
-<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
-<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
-
-
-headers = {
-  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'application/json'</span>
-}
-
-
-result = RestClient.post <span class="hljs-string">'http://petstore.swagger.io/v2/pet'</span>,
-  <span class="hljs-symbol">params:</span> {
-  }, <span class="hljs-symbol">headers:</span> headers
-
-
-p JSON.parse(result)
-
-
-</code></pre>
-<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
-headers = {
-  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
-}
-
-
-r = requests.post(<span class="hljs-string">'http://petstore.swagger.io/v2/pet'</span>, params={
-
-
-}, headers = headers)
-
-
-<span class="hljs-keyword">print</span> r.json()
-
-
-</code></pre>
-<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"http://petstore.swagger.io/v2/pet"</span>);
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod(<span class="hljs-string">"POST"</span>);
-<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
-BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
-    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
-<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-
-</code></pre>
-<p><code>POST /pet</code></p>
-<p><em>Add a new pet to the store</em></p>
+<p><code>POST /beacon</code></p>
+<p><em>Add a new beacon</em></p>
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
-  <span class="hljs-attr">"category"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>
-  },
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"doggie"</span>,
-  <span class="hljs-attr">"photoUrls"</span>: [
-    <span class="hljs-string">"string"</span>
-  ],
-  <span class="hljs-attr">"tags"</span>: [
-    {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>
-    }
-  ],
-  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"available"</span>
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {
+      <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
+      <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>,
+      <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
+      <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>
+  }
 }
 </code></pre>
-<pre class="highlight tab tab-xml"><code><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span> <span class="hljs-meta">?&gt;</span></span>
-<span class="hljs-tag">&lt;<span class="hljs-name">Pet</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">category</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">category</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>doggie<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">photoUrls</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">photoUrls</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">tags</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>string<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">tags</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">status</span>&gt;</span>available<span class="hljs-tag">&lt;/<span class="hljs-name">status</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">Pet</span>&gt;</span>
-</code></pre>
-<h3 id="addPet-parameters">Parameters</h3>
+<h3 id="parameters">Parameters</h3>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
 <th>In</th>
 <th>Type</th>
-<th>Required</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -733,13 +658,12 @@ System.out.println(response.toString());
 <tr>
 <td>body</td>
 <td>body</td>
-<td><a href="#schemapet">Pet</a></td>
-<td>true</td>
-<td>Pet object that needs to be added to the store</td>
+<td><a href="#beacon-schema">Beacon</a></td>
+<td>Beacon object that needs to be added</td>
 </tr>
 </tbody>
 </table>
-<h3 id="addPet-responses">Responses</h3>
+<h3 id="responses">Responses</h3>
 <table>
 <thead>
 <tr>
@@ -751,17 +675,116 @@ System.out.println(response.toString());
 </thead>
 <tbody>
 <tr>
-<td>405</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.5">Method Not Allowed</a></td>
-<td>Invalid input</td>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#beacon-schema">Beacon</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
 <td>None</td>
 </tr>
 </tbody>
 </table>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-petstore_auth ( Scopes: write:pets read:pets )
-</aside>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
+<h2 id="addmanybeacon">addManyBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/client -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/client HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /beacon</code></p>
+<p><em>Add many beacons</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {
+      <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
+      <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>,
+      <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
+      <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>
+  }
+},
+{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">4321432143214321</span>,
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"06D44FE3-014D-B0FE-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 8.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.1.1"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {}
+}]
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#beacon-schema">Beacons</a></td>
+<td>Array of beacon objects that need to be added</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#beacon-schema">Beacon</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
+<h2 id="getonebeacon">getOneBeacon</h2>
+<h2 id="getmanybeacon">getManyBeacon</h2>
+<h2 id="deleteonebeacon">deleteOneBeacon</h2>
+<h2 id="deletemanybeacon">deleteManyBeacon</h2>
+<h2 id="updateonebeacon">updateOneBeacon</h2>
+<h2 id="updatemanybeacon">updateManyBeacon</h2>
+<h1 id="client">Client</h1>
+<h1 id="event">Event</h1>
+<h1 id="org">Org</h1>
+<h1 id="sensor">Sensor</h1>
+<h1 id="-examples-">(Examples)</h1>
 <h2 id="updatepet">updatePet</h2>
 <p><a id="opIdupdatePet"></a></p>
 <blockquote>
