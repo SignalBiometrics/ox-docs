@@ -550,7 +550,7 @@ window.onpopstate = function() {
 </blockquote>
 <pre class="highlight"><code>Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 </code></pre>
-<p>For all API request, <code>ox</code> expects a JWT token to be included in a header that looks like the one on the right</p>
+<p>For all API request, <code>ox</code> expects a <a href="https://jwt.io/introduction/">JSON Web Token</a> to be included in a header that looks like the one on the right</p>
 <p>The <code>org</code> entity is are the root of our authentication scheme. At this time, only Signal can create new <code>org</code>. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:</p>
 <table>
 <thead>
@@ -614,6 +614,7 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://a
 <h1 id="beacon">Beacon</h1>
 <p><code>/beacon</code></p>
 <p>Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database</p>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 <h2 id="addonebeacon">addOneBeacon</h2>
 <blockquote>
 <p>Code samples</p>
@@ -689,7 +690,6 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 <h2 id="addmanybeacon">addManyBeacon</h2>
 <blockquote>
 <p>Code samples</p>
@@ -773,9 +773,110 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 <h2 id="getonebeacon">getOneBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/client/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/client/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /beacon/{id}</code></p>
+<p><em>Retrieve a beacon by id</em></p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Beacon entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="getmanybeacon">getManyBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/client/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /beacon/{id},{id},{id}</code></p>
+<p><em>Retrieve many beacons by id</em></p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Beacon entity ids separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="deleteonebeacon">deleteOneBeacon</h2>
 <h2 id="deletemanybeacon">deleteManyBeacon</h2>
 <h2 id="updateonebeacon">updateOneBeacon</h2>
@@ -4891,12 +4992,16 @@ This operation does not require authentication
 </thead>
 <tbody>
 <tr>
-<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">400</a></td>
 <td>Bad Request — Your request is invalid</td>
 </tr>
 <tr>
-<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">401</a></td>
 <td>Unauthorized — Your API key is wrong</td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">404</a></td>
+<td>Not Found — The ressource was not found</td>
 </tr>
 </tbody>
 </table>

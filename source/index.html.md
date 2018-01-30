@@ -10,7 +10,6 @@ search: true
 highlight_theme: darkula
 headingLevel: 2
 
-
 ---
 
 
@@ -121,7 +120,7 @@ If the request fails witha `4xx` or `5xx`, the response `data` property will be 
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-For all API request, `ox` expects a JWT token to be included in a header that looks like the one on the right
+For all API request, `ox` expects a [JSON Web Token](https://jwt.io/introduction/) to be included in a header that looks like the one on the right
 
 The `org` entity is are the root of our authentication scheme. At this time, only Signal can create new `org`. Beside this, entities have the right to create, modify or delete entities with a higher tier then themselves. The hiearchy looks like this:
 |Entity|Owner|Tier|
@@ -167,6 +166,8 @@ The token expires, but the client do not. Typically, clients will be devices, us
 `/beacon`
 
 Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database
+
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 
 ## addOneBeacon
 
@@ -219,7 +220,6 @@ Authorization: bearer {jwt}
 |401|[Unauthorized](#errors)|Invalid token|None|
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 
 ## addManyBeacon
 
@@ -280,10 +280,72 @@ Authorization: bearer {jwt}
 |401|[Unauthorized](#errors)|Invalid token|None|
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 
 ## getOneBeacon
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/client/{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/client/{id} HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`GET /beacon/{id}`
+
+*Retrieve a beacon by id*
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Beacon entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 ## getManyBeacon
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`GET /beacon/{id},{id},{id}`
+
+*Retrieve many beacons by id*
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Beacon entity ids separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 
 ## deleteOneBeacon
 ## deleteManyBeacon
