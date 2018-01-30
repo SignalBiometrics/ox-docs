@@ -89,7 +89,7 @@ Our API responses are JSON objects with the results (or error) assigned to the `
 |`code`|HTTP status of the response|
 |`status`|_success_ or _failure_ or _error_|
 |`message`|Additional API message|
-|`data`|The payload or the response|
+|`data`|The error or result payload|
 
 ## Success
 
@@ -97,14 +97,14 @@ If the request succeed with a `200`, the response `data` property will be popula
 
 |Verb|Scope|Type|Content|
 |-|-|-|-|
-|POST|Single|Object|{id, message}|
-|POST|Collection|Array|[{id, message}]|
+|POST|Single|Object|{id, info}|
+|POST|Collection|Array|[{id, info}]|
 |GET|Single|Object|{entity}|
 |GET|Collection|Array|[{entity}]|
-|PATCH|Single|Object|{id, message}|
-|PATCH|Collection|Array|[{id, message}]|
-|DELETE|Single|Object|{id, message}|
-|DELETE|Collection|Array|[{id, message}]|
+|PATCH|Single|Object|{id, info}|
+|PATCH|Collection|Array|[{id, info}]|
+|DELETE|Single|Object|{id, info}|
+|DELETE|Collection|Array|[{id, info}]|
 
 ## Failure
 
@@ -112,8 +112,8 @@ If the request fails witha `4xx` or `5xx`, the response `data` property will be 
 
 |Verb|Scope|Type|Content|
 |-|-|-|-|
-|\*|Single|Object|{id, message}|
-|\*|Collection|Array|[{id, message}]|
+|\*|Single|Object|{id, info}|
+|\*|Collection|Array|[{id, info}]|
 
 
 # Authentication
@@ -163,6 +163,7 @@ The token expires, but the client do not. Typically, clients will be devices, us
 
 <aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
 
+
 # Beacon
 
 `/beacon`
@@ -174,7 +175,7 @@ Beacons collect the readings of sensors, called events. Beacons are typically bl
 > Code samples
 
 ```shell
-curl -X POST https://api.signal.bio/beacon -H "{headers} -d "{payload}"
+curl -X POST https://api.signal.bio/beacon -H "{headers}" -d "{payload}"
 ```
 
 ```http
@@ -202,6 +203,26 @@ Authorization: bearer {jwt}
       "event_reading": 105,
       "event_type": "heart_rate",
       "event_timestamp": 1509108148219
+  }
+}
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:28:34.716Z",
+  "timestamp": 1517326114716,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5681589568667648"
+    ],
+    "info": "done"
   }
 }
 ```
@@ -267,6 +288,27 @@ Authorization: bearer {jwt}
 }]
 ```
 
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:30:38.308Z",
+  "timestamp": 1517326238308,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
 ### Parameters
 
 |Parameter|In|Type|Description|
@@ -301,6 +343,39 @@ Authorization: bearer {jwt}
 
 *Retrieve a beacon by id*
 
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "beacon_version": "123",
+    "beacon_env": "baz",
+    "beacon_type": "roz",
+    "beacon_last_event": {
+      "baa": "zzz"
+    },
+    "created_at": "2018-01-16T23:25:25.685Z",
+    "parent_org": {
+      "name": "1234123412340000",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412340000"
+      ]
+    },
+    "modified_at": "2018-01-16T23:25:25.685Z",
+    "beacon_id": "bar"
+  }
+}
+```
+
 ### Parameters
 
 |Parameter|In|Type|Description|
@@ -333,6 +408,66 @@ Authorization: bearer {jwt}
 `GET /beacon/{id},{id},{id}`
 
 *Retrieve many beacons by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:52:55.965Z",
+  "timestamp": 1517327575965,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": [
+    {
+      "beacon_env": "iOS 9.0",
+      "beacon_type": "iphone",
+      "beacon_last_event": {
+        "event_type": "heart_rate",
+        "event_sensor": 2345234523452345,
+        "event_timestamp": 1509108148219,
+        "event_reading": 105
+      },
+      "created_at": "2018-01-30T15:30:38.181Z",
+      "parent_org": {
+        "id": "1234123412341234",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "1234123412341234"
+        ]
+      },
+      "modified_at": "2018-01-30T15:30:38.181Z",
+      "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+      "beacon_version": "1.1.1/34"
+    },
+    {
+      "beacon_version": "1.1.1/34",
+      "beacon_env": "iOS 9.0",
+      "beacon_type": "iphone",
+      "beacon_last_event": {
+        "event_type": "heart_rate",
+        "event_sensor": 2345234523452345,
+        "event_timestamp": 1509108148219,
+        "event_reading": 105
+      },
+      "created_at": "2018-01-30T15:30:38.181Z",
+      "parent_org": {
+        "id": "1234123412341234",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "1234123412341234"
+        ]
+      },
+      "modified_at": "2018-01-30T15:30:38.182Z",
+      "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA"
+    }
+  ]
+}
+```
 
 ### Parameters
 
@@ -367,6 +502,26 @@ Authorization: bearer {jwt}
 
 *Delete a beacon by id*
 
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:55:13.871Z",
+  "timestamp": 1517327713871,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136"
+    ],
+    "info": "done"
+  }
+}
+```
+
 ### Parameters
 
 |Parameter|In|Type|Description|
@@ -399,6 +554,27 @@ Authorization: bearer {jwt}
 `DELETE /beacon/{id},{id},{id}`
 
 *Delete many beacons by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:57:57.367Z",
+  "timestamp": 1517327877367,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
 
 ### Parameters
 
@@ -443,6 +619,26 @@ Authorization: bearer {jwt}
         "beacon_type": "iphone",
         "beacon_version": "2.2.0/5"
     }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880"
+    ],
+    "info": "done"
+  }
 }
 ```
 
@@ -495,6 +691,27 @@ Authorization: bearer {jwt}
         "beacon_type": "ipad",
         "beacon_version": "1.2.0"
     }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880",
+      "5092828740845568"
+    ],
+    "info": "done"
+  }
 }
 ```
 

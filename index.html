@@ -345,13 +345,13 @@ window.onpopstate = function() {
 <td>POST</td>
 <td>Single</td>
 <td>Object</td>
-<td>{id, message}</td>
+<td>{id, info}</td>
 </tr>
 <tr>
 <td>POST</td>
 <td>Collection</td>
 <td>Array</td>
-<td>[{id, message}]</td>
+<td>[{id, info}]</td>
 </tr>
 <tr>
 <td>GET</td>
@@ -369,25 +369,25 @@ window.onpopstate = function() {
 <td>PATCH</td>
 <td>Single</td>
 <td>Object</td>
-<td>{id, message}</td>
+<td>{id, info}</td>
 </tr>
 <tr>
 <td>PATCH</td>
 <td>Collection</td>
 <td>Array</td>
-<td>[{id, message}]</td>
+<td>[{id, info}]</td>
 </tr>
 <tr>
 <td>DELETE</td>
 <td>Single</td>
 <td>Object</td>
-<td>{id, message}</td>
+<td>{id, info}</td>
 </tr>
 <tr>
 <td>DELETE</td>
 <td>Collection</td>
 <td>Array</td>
-<td>[{id, message}]</td>
+<td>[{id, info}]</td>
 </tr>
 </tbody>
 </table>
@@ -407,13 +407,13 @@ window.onpopstate = function() {
 <td>*</td>
 <td>Single</td>
 <td>Object</td>
-<td>{id, message}</td>
+<td>{id, info}</td>
 </tr>
 <tr>
 <td>*</td>
 <td>Collection</td>
 <td>Array</td>
-<td>[{id, message}]</td>
+<td>[{id, info}]</td>
 </tr>
 </tbody>
 </table>
@@ -490,8 +490,8 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://a
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/beacon -H <span class="hljs-string">"{headers} -d "</span>{payload}<span class="hljs-string">"
-</span></code></pre>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/beacon -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
 <pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/beacon HTTPS/1.1
 Host</span>: api.signal.bio
 <span class="hljs-attribute">Content-Type</span>: application/json
@@ -513,6 +513,25 @@ Host</span>: api.signal.bio
       <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>,
       <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
       <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>
+  }
+}
+</code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:28:34.716Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517326114716</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5681589568667648"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
   }
 }
 </code></pre>
@@ -605,6 +624,26 @@ Host</span>: api.signal.bio
   <span class="hljs-attr">"beacon_last_event"</span>: {}
 }]
 </code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:30:38.308Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517326238308</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -668,6 +707,38 @@ Host</span>: api.signal.bio
 </code></pre>
 <p><code>GET /beacon/{id}</code></p>
 <p><em>Retrieve a beacon by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:49:38.744Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327378744</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"123"</span>,
+    <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"baz"</span>,
+    <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"roz"</span>,
+    <span class="hljs-attr">"beacon_last_event"</span>: {
+      <span class="hljs-attr">"baa"</span>: <span class="hljs-string">"zzz"</span>
+    },
+    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+    <span class="hljs-attr">"parent_org"</span>: {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412340000"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Org"</span>,
+        <span class="hljs-string">"1234123412340000"</span>
+      ]
+    },
+    <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+    <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"bar"</span>
+  }
+}
+</code></pre>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -725,6 +796,65 @@ Host</span>: api.signal.bio
 </code></pre>
 <p><code>GET /beacon/{id},{id},{id}</code></p>
 <p><em>Retrieve many beacons by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:52:55.965Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327575965</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: [
+    {
+      <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+      <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+      <span class="hljs-attr">"beacon_last_event"</span>: {
+        <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
+        <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
+        <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>,
+        <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>
+      },
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
+      <span class="hljs-attr">"parent_org"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"Org"</span>,
+          <span class="hljs-string">"1234123412341234"</span>
+        ]
+      },
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
+      <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+      <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>
+    },
+    {
+      <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+      <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+      <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+      <span class="hljs-attr">"beacon_last_event"</span>: {
+        <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
+        <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
+        <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>,
+        <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>
+      },
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
+      <span class="hljs-attr">"parent_org"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"Org"</span>,
+          <span class="hljs-string">"1234123412341234"</span>
+        ]
+      },
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.182Z"</span>,
+      <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>
+    }
+  ]
+}
+</code></pre>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -782,6 +912,25 @@ Host</span>: api.signal.bio
 </code></pre>
 <p><code>DELETE /beacon/{id}</code></p>
 <p><em>Delete a beacon by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:55:13.871Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327713871</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -839,6 +988,26 @@ Host</span>: api.signal.bio
 </code></pre>
 <p><code>DELETE /beacon/{id},{id},{id}</code></p>
 <p><em>Delete many beacons by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:57:57.367Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327877367</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -906,6 +1075,25 @@ Host</span>: api.signal.bio
         <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
         <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
     }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
@@ -986,6 +1174,26 @@ Host</span>: api.signal.bio
         <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"ipad"</span>,
         <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.2.0"</span>
     }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>,
+      <span class="hljs-string">"5092828740845568"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
