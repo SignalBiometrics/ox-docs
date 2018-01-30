@@ -740,6 +740,564 @@ Authorization: bearer {jwt}
 
 # /client
 
+`/client`
+
+Clients are service accounts with access to the API. These accounts can be used on devices or as components for any authflow that involve access to the API. More precisely, the clients are used to issue and validate API keys, which in turn are used to sign and generate access tokens. They are also used to establish permission on our different ressources
+
+<h2 id="client_create-one">Create One</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/client -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /client`
+
+*Add a new client*
+
+> Body parameter
+
+```json
+{
+  "parent_org": 1234123412341234,
+  "parent_user": 4321432143214321,
+  "client_name": "My first client",
+  "client_id": 'ipad/123',
+}
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:28:34.716Z",
+  "timestamp": 1517326114716,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5681589568667648"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Client](#client-schema)|Client object that needs to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_create-many">Create Many</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/client -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /client`
+
+*Add many clients*
+
+> Body parameter
+
+```json
+[{
+  "parent_org": 1234123412341234,
+  "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+  "client_env": "iOS 9.0",
+  "client_type": "iphone",
+  "client_version": "1.1.1/34",
+  "client_last_event": {
+      "event_sensor": 2345234523452345,
+      "event_reading": 105,
+      "event_type": "heart_rate",
+      "event_timestamp": 1509108148219
+  }
+},
+{
+  "parent_org": 4321432143214321,
+  "client_id": "06D44FE3-014D-B0FE-A81F-14037E8701AA",
+  "client_env": "iOS 8.0",
+  "client_type": "iphone",
+  "client_version": "2.1.1",
+  "client_last_event": {}
+}]
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:30:38.308Z",
+  "timestamp": 1517326238308,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Clients](#client-schema)|Array of client objects that need to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_retrieve-one-by-id">Retrieve One by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/client/{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/client/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /client/{id}`
+
+*Retrieve a client by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "client_version": "123",
+    "client_env": "baz",
+    "client_type": "roz",
+    "client_last_event": {
+      "baa": "zzz"
+    },
+    "created_at": "2018-01-16T23:25:25.685Z",
+    "parent_org": {
+      "name": "1234123412340000",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412340000"
+      ]
+    },
+    "modified_at": "2018-01-16T23:25:25.685Z",
+    "client_id": "bar"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Client entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_retrieve-many-by-id">Retrieve Many by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /client/{id},{id},{id}`
+
+*Retrieve many clients by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:52:55.965Z",
+  "timestamp": 1517327575965,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": [
+    {
+      "client_env": "iOS 9.0",
+      "client_type": "iphone",
+      "client_last_event": {
+        "event_type": "heart_rate",
+        "event_sensor": 2345234523452345,
+        "event_timestamp": 1509108148219,
+        "event_reading": 105
+      },
+      "created_at": "2018-01-30T15:30:38.181Z",
+      "parent_org": {
+        "id": "1234123412341234",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "1234123412341234"
+        ]
+      },
+      "modified_at": "2018-01-30T15:30:38.181Z",
+      "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
+      "client_version": "1.1.1/34"
+    },
+    {
+      "client_version": "1.1.1/34",
+      "client_env": "iOS 9.0",
+      "client_type": "iphone",
+      "client_last_event": {
+        "event_type": "heart_rate",
+        "event_sensor": 2345234523452345,
+        "event_timestamp": 1509108148219,
+        "event_reading": 105
+      },
+      "created_at": "2018-01-30T15:30:38.181Z",
+      "parent_org": {
+        "id": "1234123412341234",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "1234123412341234"
+        ]
+      },
+      "modified_at": "2018-01-30T15:30:38.182Z",
+      "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA"
+    }
+  ]
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Client entity ids separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_delete-one-by-id">Delete One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/client/{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/client/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /client/{id}`
+
+*Delete a client by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:55:13.871Z",
+  "timestamp": 1517327713871,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Client entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_delete-many-id">Delete Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /client/{id},{id},{id}`
+
+*Delete many clients by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:57:57.367Z",
+  "timestamp": 1517327877367,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Client entity id separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_update-one-by-id">Update One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/client -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /client`
+
+*Update an existing client*
+
+> Body parameter
+
+```json
+{ 
+    "1234123412341234": {
+        "client_env": "iOS 10.0",
+        "client_type": "iphone",
+        "client_version": "2.2.0/5"
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="client_update-many-by-id">Update Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/client -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/client HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /client`
+
+*Update many existing clients*
+
+> Body parameter
+
+```json
+{   
+    "1234123412341234": {
+        "client_env": "iOS 10.0",
+        "client_type": "iphone",
+        "client_version": "2.2.0/5"
+    },
+    "4321432143214321": {
+        "client_env": "iOS 11.0",
+        "client_type": "ipad",
+        "client_version": "1.2.0"
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880",
+      "5092828740845568"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 # /event
 # /org
 # /sensor
