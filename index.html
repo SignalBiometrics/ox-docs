@@ -619,9 +619,9 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://a
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/client -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/beacon -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/client HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/beacon HTTPS/1.1
 Host</span>: api.signal.bio
 <span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
@@ -679,7 +679,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>400</td>
@@ -700,9 +700,9 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/client -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/beacon-H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/client HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/beacon HTTPS/1.1
 Host</span>: api.signal.bio
 <span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
@@ -768,7 +768,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>400</td>
@@ -789,11 +789,10 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/client/{id} -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/beacon/{id} -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/client/{id} HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/beacon/{id} HTTPS/1.1
 Host</span>: api.signal.bio
-<span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
 <p><code>GET /beacon/{id}</code></p>
@@ -832,7 +831,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>401</td>
@@ -847,11 +846,10 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/client/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/beacon/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/beacon/{id},{id},{id} HTTPS/1.1
 Host</span>: api.signal.bio
-<span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
 <p><code>GET /beacon/{id},{id},{id}</code></p>
@@ -890,7 +888,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>401</td>
@@ -905,11 +903,10 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/client/{id} -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/beacon/{id} -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/client/{id} HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/beacon/{id} HTTPS/1.1
 Host</span>: api.signal.bio
-<span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
 <p><code>DELETE /beacon/{id}</code></p>
@@ -948,7 +945,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>401</td>
@@ -963,11 +960,10 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/client/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/beacon/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/beacon/{id},{id},{id} HTTPS/1.1
 Host</span>: api.signal.bio
-<span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
 <p><code>DELETE /beacon/{id},{id},{id}</code></p>
@@ -1006,7 +1002,7 @@ Host</span>: api.signal.bio
 <td>200</td>
 <td>OK</td>
 <td>Request was successful</td>
-<td>none</td>
+<td>None</td>
 </tr>
 <tr>
 <td>401</td>
@@ -1018,7 +1014,160 @@ Host</span>: api.signal.bio
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="updateonebeacon">updateOneBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/beacon -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/beacon HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>PUT /beacon</code></p>
+<p><em>Update an existing beacon</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{ 
+    <span class="hljs-attr">"1234123412341234"</span>: {
+        <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
+        <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+        <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
+    }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#beacon-schema">Beacon</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="updatemanybeacon">updateManyBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/beacon -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/beacon HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /beacon</code></p>
+<p><em>Update many existing beacons</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{   
+    <span class="hljs-attr">"1234123412341234"</span>: {
+        <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
+        <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+        <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
+    },
+    <span class="hljs-attr">"4321432143214321"</span>: {
+        <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 11.0"</span>,
+        <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"ipad"</span>,
+        <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.2.0"</span>
+    }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#beacon-schema">Beacon</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="client">Client</h1>
 <h1 id="event">Event</h1>
 <h1 id="org">Org</h1>

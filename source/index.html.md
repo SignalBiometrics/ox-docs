@@ -174,11 +174,11 @@ Beacons collect the readings of sensors, called events. Beacons are typically bl
 > Code samples
 
 ```shell
-curl -X POST https://api.signal.bio/client -H "{headers}"
+curl -X POST https://api.signal.bio/beacon -H "{headers} -d "{payload}"
 ```
 
 ```http
-POST https://api.signal.io/client HTTPS/1.1
+POST https://api.signal.io/beacon HTTPS/1.1
 Host: api.signal.bio
 Content-Type: application/json
 Authorization: bearer {jwt}
@@ -227,11 +227,11 @@ Authorization: bearer {jwt}
 > Code samples
 
 ```shell
-curl -X POST https://api.signal.bio/client -H "{headers}"
+curl -X POST https://api.signal.bio/beacon -H "{headers}" -d "{payload}"
 ```
 
 ```http
-POST https://api.signal.io/client HTTPS/1.1
+POST https://api.signal.io/beacon HTTPS/1.1
 Host: api.signal.bio
 Content-Type: application/json
 Authorization: bearer {jwt}
@@ -288,13 +288,12 @@ Authorization: bearer {jwt}
 > Code samples
 
 ```shell
-curl https://api.signal.bio/client/{id} -H "{headers}"
+curl https://api.signal.bio/beacon/{id} -H "{headers}"
 ```
 
 ```http
-GET https://api.signal.io/client/{id} HTTPS/1.1
+GET https://api.signal.io/beacon/{id} HTTPS/1.1
 Host: api.signal.bio
-Content-Type: application/json
 Authorization: bearer {jwt}
 ```
 
@@ -322,13 +321,12 @@ Authorization: bearer {jwt}
 > Code samples
 
 ```shell
-curl https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+curl https://api.signal.bio/beacon/{id},{id},{id} -H "{headers}"
 ```
 
 ```http
-GET https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+GET https://api.signal.io/beacon/{id},{id},{id} HTTPS/1.1
 Host: api.signal.bio
-Content-Type: application/json
 Authorization: bearer {jwt}
 ```
 
@@ -356,13 +354,12 @@ Authorization: bearer {jwt}
 > Code samples
 
 ```shell
-curl -X DELETE https://api.signal.bio/client/{id} -H "{headers}"
+curl -X DELETE https://api.signal.bio/beacon/{id} -H "{headers}"
 ```
 
 ```http
-DELETE https://api.signal.io/client/{id} HTTPS/1.1
+DELETE https://api.signal.io/beacon/{id} HTTPS/1.1
 Host: api.signal.bio
-Content-Type: application/json
 Authorization: bearer {jwt}
 ```
 
@@ -390,13 +387,12 @@ Authorization: bearer {jwt}
 > Code samples
 
 ```shell
-curl -X DELETE https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+curl -X DELETE https://api.signal.bio/beacon/{id},{id},{id} -H "{headers}"
 ```
 
 ```http
-DELETE https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+DELETE https://api.signal.io/beacon/{id},{id},{id} HTTPS/1.1
 Host: api.signal.bio
-Content-Type: application/json
 Authorization: bearer {jwt}
 ```
 
@@ -420,7 +416,104 @@ Authorization: bearer {jwt}
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
 ## updateOneBeacon
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/beacon -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/beacon HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /beacon`
+
+*Update an existing beacon*
+
+> Body parameter
+
+```json
+{ 
+    "1234123412341234": {
+        "beacon_env": "iOS 10.0",
+        "beacon_type": "iphone",
+        "beacon_version": "2.2.0/5"
+    }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 ## updateManyBeacon
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/beacon -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/beacon HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /beacon`
+
+*Update many existing beacons*
+
+> Body parameter
+
+```json
+{   
+    "1234123412341234": {
+        "beacon_env": "iOS 10.0",
+        "beacon_type": "iphone",
+        "beacon_version": "2.2.0/5"
+    },
+    "4321432143214321": {
+        "beacon_env": "iOS 11.0",
+        "beacon_type": "ipad",
+        "beacon_version": "1.2.0"
+    }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 
 # Client
 # Event
