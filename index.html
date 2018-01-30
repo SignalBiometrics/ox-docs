@@ -3,6 +3,8 @@
 
   
 
+  
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -125,47 +127,52 @@ window.onpopstate = function() {
           </li>
         
           <li>
-            <a href="#beacon" class="toc-h1 toc-link" data-title="Beacon">Beacon</a>
+            <a href="#-" class="toc-h1 toc-link" data-title="/">/</a>
+            
+          </li>
+        
+          <li>
+            <a href="#-beacon" class="toc-h1 toc-link" data-title="/beacon">/beacon</a>
             
               <ul class="toc-list-h2">
                 
                   <li>
-                    <a href="#addonebeacon" class="toc-h2 toc-link" data-title="addOneBeacon">addOneBeacon</a>
+                    <a href="#beacon_create-one" class="toc-h2 toc-link" data-title="Create One">Create One</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#addmanybeacon" class="toc-h2 toc-link" data-title="addManyBeacon">addManyBeacon</a>
+                    <a href="#beacon_create-many" class="toc-h2 toc-link" data-title="Create Many">Create Many</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#getonebeacon" class="toc-h2 toc-link" data-title="getOneBeacon">getOneBeacon</a>
+                    <a href="#beacon_retrieve-one-by-id" class="toc-h2 toc-link" data-title="Retrieve One by Id">Retrieve One by Id</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#getmanybeacon" class="toc-h2 toc-link" data-title="getManyBeacon">getManyBeacon</a>
+                    <a href="#beacon_retrieve-many-by-id" class="toc-h2 toc-link" data-title="Retrieve Many by Id">Retrieve Many by Id</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#deleteonebeacon" class="toc-h2 toc-link" data-title="deleteOneBeacon">deleteOneBeacon</a>
+                    <a href="#beacon_delete-one-by-id" class="toc-h2 toc-link" data-title="Delete One by Id">Delete One by Id</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#deletemanybeacon" class="toc-h2 toc-link" data-title="deleteManyBeacon">deleteManyBeacon</a>
+                    <a href="#beacon_delete-many-id" class="toc-h2 toc-link" data-title="Delete Many by Id">Delete Many by Id</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#updateonebeacon" class="toc-h2 toc-link" data-title="updateOneBeacon">updateOneBeacon</a>
+                    <a href="#beacon_update-one-by-id" class="toc-h2 toc-link" data-title="Update One by Id">Update One by Id</a>
                     
                   </li>
                 
                   <li>
-                    <a href="#updatemanybeacon" class="toc-h2 toc-link" data-title="updateManyBeacon">updateManyBeacon</a>
+                    <a href="#beacon_update-many-by-id" class="toc-h2 toc-link" data-title="Update Many by Id">Update Many by Id</a>
                     
                   </li>
                 
@@ -174,22 +181,22 @@ window.onpopstate = function() {
           </li>
         
           <li>
-            <a href="#client" class="toc-h1 toc-link" data-title="Client">Client</a>
+            <a href="#-client" class="toc-h1 toc-link" data-title="/client">/client</a>
             
           </li>
         
           <li>
-            <a href="#event" class="toc-h1 toc-link" data-title="Event">Event</a>
+            <a href="#-event" class="toc-h1 toc-link" data-title="/event">/event</a>
             
           </li>
         
           <li>
-            <a href="#org" class="toc-h1 toc-link" data-title="Org">Org</a>
+            <a href="#-org" class="toc-h1 toc-link" data-title="/org">/org</a>
             
           </li>
         
           <li>
-            <a href="#sensor" class="toc-h1 toc-link" data-title="Sensor">Sensor</a>
+            <a href="#-sensor" class="toc-h1 toc-link" data-title="/sensor">/sensor</a>
             
           </li>
         
@@ -325,7 +332,7 @@ window.onpopstate = function() {
 </tr>
 <tr>
 <td><code>data</code></td>
-<td>The payload or the response</td>
+<td>The error or result payload</td>
 </tr>
 </tbody>
 </table>
@@ -483,10 +490,13 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://a
 </ol>
 <p>The token expires, but the client do not. Typically, clients will be devices, user accounts interfaces or applications and will be given the cleartext <code>client_api_key</code> as en environement variable or as part of a configuration object</p>
 <aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
-<h1 id="beacon">Beacon</h1>
+<h1 id="-">/</h1>
+<p><code>GET /</code></p>
+<p>Providing that the request is authorized and that the API is reachable, the root path will respond to a <code>GET</code> request with a  <code>200 — OK</code>. You can use it to confirm that your token is valid and that the host is reachable</p>
+<h1 id="-beacon">/beacon</h1>
 <p><code>/beacon</code></p>
 <p>Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database</p>
-<h2 id="addonebeacon">addOneBeacon</h2>
+<h2 id="beacon_create-one">Create One</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -586,7 +596,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="addmanybeacon">addManyBeacon</h2>
+<h2 id="beacon_create-many">Create Many</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -695,7 +705,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="getonebeacon">getOneBeacon</h2>
+<h2 id="beacon_retrieve-one-by-id">Retrieve One by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -784,7 +794,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="getmanybeacon">getManyBeacon</h2>
+<h2 id="beacon_retrieve-many-by-id">Retrieve Many by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -900,7 +910,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="deleteonebeacon">deleteOneBeacon</h2>
+<h2 id="beacon_delete-one-by-id">Delete One by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -976,7 +986,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="deletemanybeacon">deleteManyBeacon</h2>
+<h2 id="beacon_delete-many-id">Delete Many by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1053,7 +1063,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="updateonebeacon">updateOneBeacon</h2>
+<h2 id="beacon_update-one-by-id">Update One by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1147,7 +1157,7 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h2 id="updatemanybeacon">updateManyBeacon</h2>
+<h2 id="beacon_update-many-by-id">Update Many by Id</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -1247,10 +1257,10 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
-<h1 id="client">Client</h1>
-<h1 id="event">Event</h1>
-<h1 id="org">Org</h1>
-<h1 id="sensor">Sensor</h1>
+<h1 id="-client">/client</h1>
+<h1 id="-event">/event</h1>
+<h1 id="-org">/org</h1>
+<h1 id="-sensor">/sensor</h1>
 <h1 id="schemas">Schemas</h1>
 <p>Schemas <strong>might not</strong> be identical our internal representation (i.e. models) of the entities or even how entities are returned when queried. To illustrate this, we are including examples payload that should be passed with POST requests (<em>Request Payload</em>), and what is the expected results from GET requests (<em>Response Payload</em>)</p>
 <p>There is also table with <em>Appended Values</em> and <em>Modified Values</em>. <em>Appended Values</em> are added during the creation or modification of entities, while <em>Modified Values</em> are changed on the fly, for instance when casting a type into another</p>

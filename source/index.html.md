@@ -5,6 +5,7 @@ language_tabs:
   - http: HTTP
 toc_footers: []
 includes:
+  - schemas
   - errors
 search: true
 highlight_theme: darkula
@@ -163,14 +164,19 @@ The token expires, but the client do not. Typically, clients will be devices, us
 
 <aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
 
+# /
 
-# Beacon
+`GET /`
+
+Providing that the request is authorized and that the API is reachable, the root path will respond to a `GET` request with a  `200 — OK`. You can use it to confirm that your token is valid and that the host is reachable
+
+# /beacon
 
 `/beacon`
 
 Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database
 
-## addOneBeacon
+<h2 id="beacon_create-one">Create One</h2>
 
 > Code samples
 
@@ -243,7 +249,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## addManyBeacon
+<h2 id="beacon_create-many">Create Many</h2>
 
 > Code samples
 
@@ -325,7 +331,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## getOneBeacon
+<h2 id="beacon_retrieve-one-by-id">Retrieve One by Id</h2>
 
 > Code samples
 
@@ -391,7 +397,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## getManyBeacon
+<h2 id="beacon_retrieve-many-by-id">Retrieve Many by Id</h2>
 
 > Code samples
 
@@ -484,7 +490,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## deleteOneBeacon
+<h2 id="beacon_delete-one-by-id">Delete One by Id</h2>
 
 > Code samples
 
@@ -537,7 +543,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## deleteManyBeacon
+<h2 id="beacon_delete-many-id">Delete Many by Id</h2>
 
 > Code samples
 
@@ -591,7 +597,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## updateOneBeacon
+<h2 id="beacon_update-one-by-id">Update One by Id</h2>
 
 > Code samples
 
@@ -658,7 +664,7 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
-## updateManyBeacon
+<h2 id="beacon_update-many-by-id">Update Many by Id</h2>
 
 > Code samples
 
@@ -732,82 +738,8 @@ Authorization: bearer {jwt}
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
 
-# Client
-# Event
-# Org
-# Sensor
+# /client
 
-
-# Schemas
-
-Schemas **might not** be identical our internal representation (i.e. models) of the entities or even how entities are returned when queried. To illustrate this, we are including examples payload that should be passed with POST requests (_Request Payload_), and what is the expected results from GET requests (_Response Payload_)
-
-There is also table with _Appended Values_ and _Modified Values_. _Appended Values_ are added during the creation or modification of entities, while _Modified Values_ are changed on the fly, for instance when casting a type into another
-
-<aside class="notice">Remember that the <i>Response Payload</i> will be in <code>response.data</code></aside>
-
-<h2 id="beacon-schema">Beacon</h2>
-
-> Request Payload
-
-```json
-{
-  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
-  "beacon_env": "iOS 9.0",
-  "beacon_type": "iphone",
-  "beacon_version": "1.1.1/34",
-  "beacon_last_event": {
-    "foo": "bar"
-  },
-  "parent_org": 1234123412341234,
-}
-```
-
-> Return Payload
-
-```json
-{
-  "beacon_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
-  "beacon_env": "iOS 9.0",
-  "beacon_type": "iphone",
-  "beacon_version": "1.1.1/34",
-  "beacon_last_event": {
-    "foo": "bar"
-  },
-  "parent_org": {
-    "name": "1234123412341234",
-    "kind": "Org",
-    "path": [
-      "Org",
-      "1234123412341234"
-    ]
-  },
-  "created_at": "2018-01-16T23:25:25.685Z",
-  "modified_at": "2018-05-17T11:36:55.907Z",
-}
-```
-
-### Properties
-
-|Name|Type|Required|Description|
-|-|-|-|-|
-|parent_org|Integer|true|The id of this beacon's parent org|
-|beacon_id|String|true|Custom local id of this device|
-|beacon_env|String|true|Device OS or model (including version)|
-|beacon_type|String|true|Device type| 
-|beacon_version|String|true|Version number of the Signal app|
-|beacon_last_event|Object([Event](#event-schema))|false|The last event captured by this beacon|
-
-### Appended Values
-
-|Property|Description|
-|-|-|
-|id|Id of the entity|
-|created_at|When the entity was created|
-|modified_at|When the entity was last modified|
-
-### Modified Values
-
-|Property|From|To|
-|-|-|-|
-|parent_org|Integer|Object(Key)|
+# /event
+# /org
+# /sensor
