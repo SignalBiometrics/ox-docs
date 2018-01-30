@@ -390,10 +390,12 @@ window.onpopstate = function() {
 </tr>
 </tbody>
 </table>
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 <h2 id="payload--amp--params">Payload &amp; params</h2>
 <p>As a general rule, endpoints that create a single entity will expect a JSON, while those creating many entities will expect an array of these objects</p>
 <p>Endpoints that modify entities will either require an <code>id</code> URL parameter and a payload (single), or a JSON consisting of the <code>ids</code> to modify as properties and their changes as an object. Have a look at the <a href="updatemanybeacon">updateManyBeacon</a> for an example of this</p>
 <p>Endpoints that do not require a payload (read &amp; delete operations) will only require parameters passed in the URL, with multiple values separated by commas</p>
+<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
 <h1 id="responses">Responses</h1>
 <p>Our API responses are JSON objects with the results (or error) assigned to the <code>data</code> property. Our structure liberally adds a few extra properties to the <a href="https://labs.omniti.com/labs/jsend">JSend</a> &quot;specs&quot;:</p>
 <blockquote>
@@ -610,11 +612,9 @@ curl -H <span class="hljs-string">"Authorization: bearer {jwt}"</span> https://a
 </ol>
 <p>The token expires, but the client do not. Typically, clients will be devices, user accounts interfaces or applications and will be given the cleartext <code>client_api_key</code> as en environement variable or as part of a configuration object</p>
 <aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
-<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
 <h1 id="beacon">Beacon</h1>
 <p><code>/beacon</code></p>
 <p>Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database</p>
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 <h2 id="addonebeacon">addOneBeacon</h2>
 <blockquote>
 <p>Code samples</p>
@@ -675,6 +675,12 @@ Host</span>: api.signal.bio
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
 <tr>
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
@@ -759,6 +765,12 @@ Host</span>: api.signal.bio
 </thead>
 <tbody>
 <tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
+<tr>
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
 <td>Invalid payload</td>
@@ -817,6 +829,12 @@ Host</span>: api.signal.bio
 </thead>
 <tbody>
 <tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
+<tr>
 <td>401</td>
 <td><a href="#errors">Unauthorized</a></td>
 <td>Invalid token</td>
@@ -869,6 +887,12 @@ Host</span>: api.signal.bio
 </thead>
 <tbody>
 <tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
+<tr>
 <td>401</td>
 <td><a href="#errors">Unauthorized</a></td>
 <td>Invalid token</td>
@@ -878,7 +902,121 @@ Host</span>: api.signal.bio
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="deleteonebeacon">deleteOneBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/client/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/client/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /beacon/{id}</code></p>
+<p><em>Delete a beacon by id</em></p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Beacon entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="deletemanybeacon">deleteManyBeacon</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/client/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /beacon/{id},{id},{id}</code></p>
+<p><em>Delete many beacons by id</em></p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Beacon entity id separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>none</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="updateonebeacon">updateOneBeacon</h2>
 <h2 id="updatemanybeacon">updateManyBeacon</h2>
 <h1 id="client">Client</h1>

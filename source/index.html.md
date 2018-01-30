@@ -46,12 +46,16 @@ This depends on the endpoint, but as a general rule if the request du not create
 |Authorization|bearer _{jwt}_|
 |Content-type|application/json|
 
+<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
+
 ## Payload & params
 As a general rule, endpoints that create a single entity will expect a JSON, while those creating many entities will expect an array of these objects
 
 Endpoints that modify entities will either require an `id` URL parameter and a payload (single), or a JSON consisting of the `ids` to modify as properties and their changes as an object. Have a look at the [updateManyBeacon](updatemanybeacon) for an example of this
 
 Endpoints that do not require a payload (read & delete operations) will only require parameters passed in the URL, with multiple values separated by commas
+
+<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
 
 # Responses
 
@@ -158,16 +162,12 @@ Since the API is meant to be accessed programatically, we are not relying on a u
 The token expires, but the client do not. Typically, clients will be devices, user accounts interfaces or applications and will be given the cleartext `client_api_key` as en environement variable or as part of a configuration object
 
 <aside class="warning">Remember that <code>/client</code> is a protected endpoint</aside>
-<aside class="notice">You must replace parameters in <code>{brackets}</code> with your own</aside>
-
 
 # Beacon
 
 `/beacon`
 
 Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database
-
-<aside class="notice">You must replace <code>{headers}</code> with valid headers</aside>
 
 ## addOneBeacon
 
@@ -216,6 +216,7 @@ Authorization: bearer {jwt}
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
+|200|OK|Request was successful|None|
 |400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
@@ -276,6 +277,7 @@ Authorization: bearer {jwt}
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
+|200|OK|Request was successful|None|
 |400|[Bad Request](#errors)|Invalid payload|[Beacon](#beacon-schema)|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
@@ -310,6 +312,7 @@ Authorization: bearer {jwt}
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
+|200|OK|Request was successful|None|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
@@ -343,12 +346,78 @@ Authorization: bearer {jwt}
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
+|200|OK|Request was successful|None|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
 ## deleteOneBeacon
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/client/{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/client/{id} HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`DELETE /beacon/{id}`
+
+*Delete a beacon by id*
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Beacon entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 ## deleteManyBeacon
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/client/{id},{id},{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/client/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`DELETE /beacon/{id},{id},{id}`
+
+*Delete many beacons by id*
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Beacon entity id separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 
 ## updateOneBeacon
 ## updateManyBeacon
