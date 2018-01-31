@@ -620,7 +620,7 @@ Authorization: bearer {jwt}
 
 ```json
 { 
-    "1234123412341234": {
+    "5655778694266880": {
         "beacon_env": "iOS 10.0",
         "beacon_type": "iphone",
         "beacon_version": "2.2.0/5"
@@ -687,12 +687,12 @@ Authorization: bearer {jwt}
 
 ```json
 {   
-    "1234123412341234": {
+    "5655778694266880": {
         "beacon_env": "iOS 10.0",
         "beacon_type": "iphone",
         "beacon_version": "2.2.0/5"
     },
-    "4321432143214321": {
+    "5092828740845568": {
         "beacon_env": "iOS 11.0",
         "beacon_type": "ipad",
         "beacon_version": "1.2.0"
@@ -834,25 +834,16 @@ Authorization: bearer {jwt}
 ```json
 [{
   "parent_org": 1234123412341234,
-  "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
-  "client_env": "iOS 9.0",
-  "client_type": "iphone",
-  "client_version": "1.1.1/34",
-  "client_last_event": {
-      "event_sensor": 2345234523452345,
-      "event_reading": 105,
-      "event_type": "heart_rate",
-      "event_timestamp": 1509108148219
-  }
-},
-{
-  "parent_org": 4321432143214321,
-  "client_id": "06D44FE3-014D-B0FE-A81F-14037E8701AA",
-  "client_env": "iOS 8.0",
-  "client_type": "iphone",
-  "client_version": "2.1.1",
-  "client_last_event": {}
-}]
+  "parent_user": 4321432143214321,
+  "client_name": "My first client",
+  "client_id": 'ipad/123',
+},{
+  "parent_org": 1234123412341234,
+  "parent_user": 4321432143214321,
+  "client_name": "My second client",
+  "client_id": 'ipod/777',
+}
+]
 ```
 
 > Success response
@@ -922,24 +913,27 @@ Authorization: bearer {jwt}
   "status": "success",
   "message": "Call successful",
   "data": {
-    "client_version": "123",
-    "client_env": "baz",
-    "client_type": "roz",
-    "client_last_event": {
-      "baa": "zzz"
-    },
-    "created_at": "2018-01-16T23:25:25.685Z",
+    "client_id": "ipad/123",
+    "client_name": "My first client",
     "parent_org": {
-      "name": "1234123412340000",
+      "name": "1234123412341234",
       "kind": "Org",
       "path": [
         "Org",
-        "1234123412340000"
-      ]
+        "1234123412341234"
+        ]
     },
-    "modified_at": "2018-01-16T23:25:25.685Z",
-    "client_id": "bar"
-  }
+    "parent_user": {
+      "name": "4321432143214321",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "4321432143214321"
+        ]
+    },
+  },
+  "created_at": "2018-01-16T23:25:25.685Z",
+  "modified_at": "2018-05-17T11:36:55.907Z",
 }
 ```
 
@@ -987,52 +981,30 @@ Authorization: bearer {jwt}
   "code": 200,
   "status": "success",
   "message": "Call successful",
-  "data": [
-    {
-      "client_env": "iOS 9.0",
-      "client_type": "iphone",
-      "client_last_event": {
-        "event_type": "heart_rate",
-        "event_sensor": 2345234523452345,
-        "event_timestamp": 1509108148219,
-        "event_reading": 105
-      },
-      "created_at": "2018-01-30T15:30:38.181Z",
-      "parent_org": {
-        "id": "1234123412341234",
-        "kind": "Org",
-        "path": [
-          "Org",
-          "1234123412341234"
+  "data": [{
+    "client_id": "ipad/123",
+    "client_name": "My first client",
+    "parent_org": {
+      "name": "1234123412341234",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412341234"
         ]
-      },
-      "modified_at": "2018-01-30T15:30:38.181Z",
-      "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA",
-      "client_version": "1.1.1/34"
     },
-    {
-      "client_version": "1.1.1/34",
-      "client_env": "iOS 9.0",
-      "client_type": "iphone",
-      "client_last_event": {
-        "event_type": "heart_rate",
-        "event_sensor": 2345234523452345,
-        "event_timestamp": 1509108148219,
-        "event_reading": 105
-      },
-      "created_at": "2018-01-30T15:30:38.181Z",
-      "parent_org": {
-        "id": "1234123412341234",
-        "kind": "Org",
-        "path": [
-          "Org",
-          "1234123412341234"
+  },
+  {
+    "client_id": "iphone/777",
+    "client_name": "My second client",
+    "parent_org": {
+      "name": "1234123412341234",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412341234"
         ]
-      },
-      "modified_at": "2018-01-30T15:30:38.182Z",
-      "client_id": "014DB0FE-06D4-4FE3-A81F-14037E8701AA"
     }
-  ]
+  }]
 }
 ```
 
@@ -1181,10 +1153,8 @@ Authorization: bearer {jwt}
 
 ```json
 { 
-    "1234123412341234": {
-        "client_env": "iOS 10.0",
-        "client_type": "iphone",
-        "client_version": "2.2.0/5"
+    "5655778694266880": {
+        "client_name": "new device name",
     }
 }
 ```
@@ -1248,15 +1218,11 @@ Authorization: bearer {jwt}
 
 ```json
 {   
-    "1234123412341234": {
-        "client_env": "iOS 10.0",
-        "client_type": "iphone",
-        "client_version": "2.2.0/5"
+    "5655778694266880": {
+        "client_type": "very new device name",
     },
-    "4321432143214321": {
-        "client_env": "iOS 11.0",
-        "client_type": "ipad",
-        "client_version": "1.2.0"
+    "5092828740845568": {
+        "client_type": "very very new device name",
     }
 }
 ```

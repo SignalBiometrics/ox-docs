@@ -82,7 +82,7 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
   "client_id": 'ipad/123',
   "client_name": "My first client",
   "parent_org": 1234123412341234,
-  "parent_user": 4321432143214321
+  "parent_user": 432143214321432
 }
 ```
 
@@ -120,7 +120,9 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |client_id|String|true|User defined id for the client|
 |client_name|String|true|User defined common name for the client|
 |parent_org|Integer|_true_|The id of this beacon's parent org|
-|parent_user|Number|_true_|The id of this client's parent org|
+|parent_user|Number|_true_|The id of this client's parent org\*|
+
+\* *DEPRECATED* do not use
 
 ### Appended Values
 
