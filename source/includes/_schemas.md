@@ -71,3 +71,67 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |Property|From|To|
 |-|-|-|
 |parent_org|Integer|Object(Key)|
+
+
+<h2 id="client-schema">Client</h2>
+
+> Request Payload
+
+```json
+{
+  "client_id": 'ipad/123',
+  "client_name": "My first client",
+  "parent_org": 1234123412341234,
+  "parent_user": 4321432143214321
+}
+```
+
+> Return Payload
+
+```json
+{
+  "client_id": "ipad/123",
+  "client_name": "My first client",
+  "parent_org": {
+    "name": "1234123412341234",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "1234123412341234"
+    ]
+  },
+  "parent_user": {
+    "name": "4321432143214321",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "4321432143214321"
+    ]
+  },
+  "created_at": "2018-01-16T23:25:25.685Z",
+  "modified_at": "2018-05-17T11:36:55.907Z",
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|-|-|-|-|
+|client_id|String|true|User defined id for the client|
+|client_name|String|true|User defined common name for the client|
+|parent_org|Integer|_true_|The id of this beacon's parent org|
+|parent_user|Number|_true_|The id of this client's parent org|
+
+### Appended Values
+
+|Property|Description|
+|-|-|
+|created_at|When the entity was created|
+|modified_at|When the entity was last modified|
+
+### Modified Values
+
+|Property|From|To|
+|-|-|-|
+|parent_org|Integer|Object(Key)|
+|parent_user|Integer|Object(Key)|
