@@ -79,7 +79,7 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 
 ```json
 {
-  "client_id": 'ipad/123',
+  "client_id": "ipad/123",
   "client_name": "My first client",
   "parent_org": 1234123412341234,
   "parent_user": 432143214321432

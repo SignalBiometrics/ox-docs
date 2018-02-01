@@ -254,6 +254,11 @@ window.onpopstate = function() {
                     
                   </li>
                 
+                  <li>
+                    <a href="#client-schema" class="toc-h2 toc-link" data-title="Client">Client</a>
+                    
+                  </li>
+                
               </ul>
             
           </li>
@@ -1124,7 +1129,7 @@ Host</span>: api.signal.bio
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{ 
-    <span class="hljs-attr">"1234123412341234"</span>: {
+    <span class="hljs-attr">"5655778694266880"</span>: {
         <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
         <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
         <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
@@ -1218,12 +1223,12 @@ Host</span>: api.signal.bio
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{   
-    <span class="hljs-attr">"1234123412341234"</span>: {
+    <span class="hljs-attr">"5655778694266880"</span>: {
         <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
         <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
         <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
     },
-    <span class="hljs-attr">"4321432143214321"</span>: {
+    <span class="hljs-attr">"5092828740845568"</span>: {
         <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 11.0"</span>,
         <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"ipad"</span>,
         <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.2.0"</span>
@@ -1415,25 +1420,16 @@ Host</span>: api.signal.bio
 </blockquote>
 <pre class="highlight tab tab-json"><code>[{
   <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
-  <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
-  <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
-  <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-  <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
-  <span class="hljs-attr">"client_last_event"</span>: {
-      <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
-      <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>,
-      <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
-      <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>
-  }
-},
-{
-  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">4321432143214321</span>,
-  <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"06D44FE3-014D-B0FE-A81F-14037E8701AA"</span>,
-  <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 8.0"</span>,
-  <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-  <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"2.1.1"</span>,
-  <span class="hljs-attr">"client_last_event"</span>: {}
-}]
+  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">4321432143214321</span>,
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+  <span class="hljs-attr">"client_id"</span>: 'ipad/<span class="hljs-number">123</span>',
+},{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">4321432143214321</span>,
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My second client"</span>,
+  <span class="hljs-attr">"client_id"</span>: 'ipod/<span class="hljs-number">777</span>',
+}
+]
 </code></pre>
 <blockquote>
 <p>Success response</p>
@@ -1530,24 +1526,27 @@ Host</span>: api.signal.bio
   <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
   <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
   <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"123"</span>,
-    <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"baz"</span>,
-    <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"roz"</span>,
-    <span class="hljs-attr">"client_last_event"</span>: {
-      <span class="hljs-attr">"baa"</span>: <span class="hljs-string">"zzz"</span>
-    },
-    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+    <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
     <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412340000"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
       <span class="hljs-attr">"path"</span>: [
         <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"1234123412340000"</span>
-      ]
+        <span class="hljs-string">"1234123412341234"</span>
+        ]
     },
-    <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
-    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"bar"</span>
-  }
+    <span class="hljs-attr">"parent_user"</span>: {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"4321432143214321"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Org"</span>,
+        <span class="hljs-string">"4321432143214321"</span>
+        ]
+    },
+  },
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
@@ -1618,52 +1617,30 @@ Host</span>: api.signal.bio
   <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
   <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
-  <span class="hljs-attr">"data"</span>: [
-    {
-      <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
-      <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-      <span class="hljs-attr">"client_last_event"</span>: {
-        <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
-        <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
-        <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>,
-        <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>
-      },
-      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
-      <span class="hljs-attr">"parent_org"</span>: {
-        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
-        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-        <span class="hljs-attr">"path"</span>: [
-          <span class="hljs-string">"Org"</span>,
-          <span class="hljs-string">"1234123412341234"</span>
+  <span class="hljs-attr">"data"</span>: [{
+    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+    <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+    <span class="hljs-attr">"parent_org"</span>: {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Org"</span>,
+        <span class="hljs-string">"1234123412341234"</span>
         ]
-      },
-      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
-      <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
-      <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"1.1.1/34"</span>
     },
-    {
-      <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
-      <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
-      <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-      <span class="hljs-attr">"client_last_event"</span>: {
-        <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
-        <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">2345234523452345</span>,
-        <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1509108148219</span>,
-        <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">105</span>
-      },
-      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.181Z"</span>,
-      <span class="hljs-attr">"parent_org"</span>: {
-        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
-        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-        <span class="hljs-attr">"path"</span>: [
-          <span class="hljs-string">"Org"</span>,
-          <span class="hljs-string">"1234123412341234"</span>
+  },
+  {
+    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"iphone/777"</span>,
+    <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My second client"</span>,
+    <span class="hljs-attr">"parent_org"</span>: {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Org"</span>,
+        <span class="hljs-string">"1234123412341234"</span>
         ]
-      },
-      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-30T15:30:38.182Z"</span>,
-      <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>
     }
-  ]
+  }]
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
@@ -1881,10 +1858,8 @@ Host</span>: api.signal.bio
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{ 
-    <span class="hljs-attr">"1234123412341234"</span>: {
-        <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
-        <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-        <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
+    <span class="hljs-attr">"5655778694266880"</span>: {
+        <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"new device name"</span>,
     }
 }
 </code></pre>
@@ -1975,15 +1950,11 @@ Host</span>: api.signal.bio
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{   
-    <span class="hljs-attr">"1234123412341234"</span>: {
-        <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 10.0"</span>,
-        <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"iphone"</span>,
-        <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"2.2.0/5"</span>
+    <span class="hljs-attr">"5655778694266880"</span>: {
+        <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"very new device name"</span>,
     },
-    <span class="hljs-attr">"4321432143214321"</span>: {
-        <span class="hljs-attr">"client_env"</span>: <span class="hljs-string">"iOS 11.0"</span>,
-        <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"ipad"</span>,
-        <span class="hljs-attr">"client_version"</span>: <span class="hljs-string">"1.2.0"</span>
+    <span class="hljs-attr">"5092828740845568"</span>: {
+        <span class="hljs-attr">"client_type"</span>: <span class="hljs-string">"very very new device name"</span>,
     }
 }
 </code></pre>
@@ -2187,6 +2158,122 @@ Host</span>: api.signal.bio
 <tbody>
 <tr>
 <td>parent_org</td>
+<td>Integer</td>
+<td>Object(Key)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="client-schema">Client</h2>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"client_id"</span>: 'ipad/<span class="hljs-number">123</span>',
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">432143214321432</span>
+}
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+  <span class="hljs-attr">"parent_org"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"1234123412341234"</span>
+    ]
+  },
+  <span class="hljs-attr">"parent_user"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"4321432143214321"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"4321432143214321"</span>
+    ]
+  },
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
+}
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>String</td>
+<td>true</td>
+<td>User defined id for the client</td>
+</tr>
+<tr>
+<td>client_name</td>
+<td>String</td>
+<td>true</td>
+<td>User defined common name for the client</td>
+</tr>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td><em>true</em></td>
+<td>The id of this beacon's parent org</td>
+</tr>
+<tr>
+<td>parent_user</td>
+<td>Number</td>
+<td><em>true</em></td>
+<td>The id of this client's parent org*</td>
+</tr>
+</tbody>
+</table>
+<p>* <em>DEPRECATED</em> do not use</p>
+<h3 id="appended-values">Appended Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>created_at</td>
+<td>When the entity was created</td>
+</tr>
+<tr>
+<td>modified_at</td>
+<td>When the entity was last modified</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td>Object(Key)</td>
+</tr>
+<tr>
+<td>parent_user</td>
 <td>Integer</td>
 <td>Object(Key)</td>
 </tr>

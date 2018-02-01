@@ -770,7 +770,7 @@ Authorization: bearer {jwt}
   "parent_org": 1234123412341234,
   "parent_user": 4321432143214321,
   "client_name": "My first client",
-  "client_id": 'ipad/123',
+  "client_id": "ipad/123",
 }
 ```
 
@@ -836,12 +836,12 @@ Authorization: bearer {jwt}
   "parent_org": 1234123412341234,
   "parent_user": 4321432143214321,
   "client_name": "My first client",
-  "client_id": 'ipad/123',
+  "client_id": "ipad/123",
 },{
   "parent_org": 1234123412341234,
   "parent_user": 4321432143214321,
   "client_name": "My second client",
-  "client_id": 'ipod/777',
+  "client_id": "ipod/777",
 }
 ]
 ```
