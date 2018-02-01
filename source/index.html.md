@@ -176,6 +176,8 @@ Providing that the request is authorized and that the API is reachable, the root
 
 Beacons collect the readings of sensors, called events. Beacons are typically bluetooth-enabled devices that are connected to the internet and relay back events to our realtime database
 
+When a beacon is added, it is also added to our realtime database and watch both by a server service and our app instances. When the `beacon_last_event` field is updated, this change is broadcasted to all connected & authenticated devices
+
 <h2 id="beacon_create-one">Create One</h2>
 
 > Code samples
@@ -789,7 +791,8 @@ Authorization: bearer {jwt}
     "ids": [
       "5681589568667648"
     ],
-    "info": "done"
+    "info": "done",
+    "client_api_key": "0dbe990f688799287c3673382a9d4460cd343f2511a0cff8a26bf088a726c805"
   }
 }
 ```
@@ -808,9 +811,13 @@ Authorization: bearer {jwt}
 |400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
+<aside class="notice">The clear text API key is returned in <code>data.client_api_key</code></aside>
+
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
 <h2 id="client_create-many">Create Many</h2>
+
+<aside class="warning">Not implemented</aside>
 
 > Code samples
 
@@ -881,7 +888,82 @@ Authorization: bearer {jwt}
 |400|[Bad Request](#errors)|Invalid payload|[Client](#client-schema)|
 |401|[Unauthorized](#errors)|Invalid token|None|
 
-<aside class="warning">You must be authenticated to access this endpoint</aside>
+<aside class="warning">Not implemented</aside>
+
+<h2 id="client_issue-token">Issue Token</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/client/token/{parent_org}/{client_id}/{client_api_key} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/client/token/{parent_org}/{client_id}/{client_api_key} HTTPS/1.1
+Host: api.signal.bio
+```
+
+`GET /client/tokent/{parent_org}/{client_id}/{client_api_key}`
+
+*Retrieve a JSON Web Token signed with an API key*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "parent_user": {
+      "id": "4321432143214321",
+      "kind": "User",
+      "path": [
+        "User",
+        "4321432143214321"
+      ]
+    },
+    "client_secret": "$2a$10$L/GOsc5v4lw/iUzuYDOUH.zBEMb1fbYrFlJJXtLTYC78lG.1nl.Fa",
+    "client_id": "baz",
+    "created_at": "2018-02-01T12:58:37.574Z",
+    "parent_org": {
+      "id": "1234123412341234",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412341234"
+      ]
+    },
+    "modified_at": "2018-02-01T12:58:37.579Z",
+    "client_name": "booboo",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJlbnRfb3JnIjp7ImlkIjoiMTIzNDEyMzQxMjM0MTIzNCIsImtpbmQiOiJPcmciLCJwYXRoIjpbIk9yZyIsIjEyMzQxMjM0MTIzNDEyMzQiXX0sInBhcmVudF91c2VyIjp7ImlkIjoiNDMyMTQzMjE0MzIxNDMyMSIsImtpbmQiOiJVc2VyIiwicGF0aCI6WyJVc2VyIiwiNDMyMTQzMjE0MzIxNDMyMSJdfSwiY2xpZW50X2lkIjoiYmF6IiwiY2xpZW50X25hbWUiOiJib29ib28iLCJpYXQiOjE1MTc1MDgxMDMsImV4cCI6MTUxNzc2NzMwM30.iizTopa0Zr0ddcmi8Htu4dcN_lpFrTdzoblDyt33bls"
+  },
+  "created_at": "2018-01-16T23:25:25.685Z",
+  "modified_at": "2018-05-17T11:36:55.907Z",
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Client entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|403|[Forbidden](#errors)|The API key does not match the one stored|None|
+|404|[Not Found](#errors)|The client was not found|None|
+
+<aside class="notice">The JWT in <code>data.token</code> his used to authenticate our requests</aside>
+
+<aside class="success">This endpoint does not require authentication</aside>
 
 <h2 id="client_retrieve-one-by-id">Retrieve One by Id</h2>
 

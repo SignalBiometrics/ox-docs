@@ -108,8 +108,9 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
       "4321432143214321"
     ]
   },
+  "client_secret": "$2a$10$L/GOsc5v4lw/iUzuYDOUH.zBEMb1fbYrFlJJXtLTYC78lG.1nl.Fa",
   "created_at": "2018-01-16T23:25:25.685Z",
-  "modified_at": "2018-05-17T11:36:55.907Z",
+  "modified_at": "2018-05-17T11:36:55.907Z"
 }
 ```
 
@@ -130,6 +131,7 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |-|-|
 |created_at|When the entity was created|
 |modified_at|When the entity was last modified|
+|client_secret|Generated on creation|
 
 ### Modified Values
 
