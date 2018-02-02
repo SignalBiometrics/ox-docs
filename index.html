@@ -237,6 +237,50 @@ window.onpopstate = function() {
           <li>
             <a href="#-event" class="toc-h1 toc-link" data-title="/event">/event</a>
             
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#event_create-one" class="toc-h2 toc-link" data-title="Create One">Create One</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_create-many" class="toc-h2 toc-link" data-title="Create Many">Create Many</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_retrieve-one-by-id" class="toc-h2 toc-link" data-title="Retrieve One by Id">Retrieve One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_retrieve-many-by-id" class="toc-h2 toc-link" data-title="Retrieve Many by Id">Retrieve Many by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_delete-one-by-id" class="toc-h2 toc-link" data-title="Delete One by Id">Delete One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_delete-many-id" class="toc-h2 toc-link" data-title="Delete Many by Id">Delete Many by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_update-one-by-id" class="toc-h2 toc-link" data-title="Update One by Id">Update One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#event_update-many-by-id" class="toc-h2 toc-link" data-title="Update Many by Id">Update Many by Id</a>
+                    
+                  </li>
+                
+              </ul>
+            
           </li>
         
           <li>
@@ -256,6 +300,16 @@ window.onpopstate = function() {
                 
                   <li>
                     <a href="#beacon-schema" class="toc-h2 toc-link" data-title="Beacon">Beacon</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#client-schema" class="toc-h2 toc-link" data-title="Client">Client</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#client-schema" class="toc-h2 toc-link" data-title="Client">Client</a>
                     
                   </li>
                 
@@ -1521,7 +1575,7 @@ Host</span>: api.signal.bio
 Host</span>: api.signal.bio
 </code></pre>
 <p><code>GET /client/tokent/{parent_org}/{client_id}/{client_api_key}</code></p>
-<p><em>Retrieve a signed JSON Web Token</em></p>
+<p><em>Retrieve a JSON Web Token signed with an API key</em></p>
 <blockquote>
 <p>Success response</p>
 </blockquote>
@@ -1534,24 +1588,28 @@ Host</span>: api.signal.bio
   <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
   <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
   <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
-    <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+    <span class="hljs-attr">"parent_user"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4321432143214321"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"User"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"User"</span>,
+        <span class="hljs-string">"4321432143214321"</span>
+      ]
+    },
+    <span class="hljs-attr">"client_secret"</span>: <span class="hljs-string">"$2a$10$L/GOsc5v4lw/iUzuYDOUH.zBEMb1fbYrFlJJXtLTYC78lG.1nl.Fa"</span>,
+    <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"baz"</span>,
+    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-01T12:58:37.574Z"</span>,
     <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
       <span class="hljs-attr">"path"</span>: [
         <span class="hljs-string">"Org"</span>,
         <span class="hljs-string">"1234123412341234"</span>
-        ]
+      ]
     },
-    <span class="hljs-attr">"parent_user"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"4321432143214321"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-      <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"4321432143214321"</span>
-        ]
-    },
+    <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-01T12:58:37.579Z"</span>,
+    <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"booboo"</span>,
+    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJlbnRfb3JnIjp7ImlkIjoiMTIzNDEyMzQxMjM0MTIzNCIsImtpbmQiOiJPcmciLCJwYXRoIjpbIk9yZyIsIjEyMzQxMjM0MTIzNDEyMzQiXX0sInBhcmVudF91c2VyIjp7ImlkIjoiNDMyMTQzMjE0MzIxNDMyMSIsImtpbmQiOiJVc2VyIiwicGF0aCI6WyJVc2VyIiwiNDMyMTQzMjE0MzIxNDMyMSJdfSwiY2xpZW50X2lkIjoiYmF6IiwiY2xpZW50X25hbWUiOiJib29ib28iLCJpYXQiOjE1MTc1MDgxMDMsImV4cCI6MTUxNzc2NzMwM30.iizTopa0Zr0ddcmi8Htu4dcN_lpFrTdzoblDyt33bls"</span>
   },
   <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
   <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
@@ -1594,14 +1652,21 @@ Host</span>: api.signal.bio
 <td>None</td>
 </tr>
 <tr>
-<td>401</td>
-<td><a href="#errors">Unauthorized</a></td>
-<td>Invalid token</td>
+<td>403</td>
+<td><a href="#errors">Forbidden</a></td>
+<td>The API key does not match the one stored</td>
+<td>None</td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="#errors">Not Found</a></td>
+<td>The client was not found</td>
 <td>None</td>
 </tr>
 </tbody>
 </table>
-<aside class="success">This endpoint requires no authentication</aside>
+<aside class="notice">The JWT in <code>data.token</code> his used to authenticate our requests</aside>
+<aside class="success">This endpoint does not require authentication</aside>
 <h2 id="client_retrieve-one-by-id">Retrieve One by Id</h2>
 <blockquote>
 <p>Code samples</p>
@@ -2130,6 +2195,685 @@ Host</span>: api.signal.bio
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="-event">/event</h1>
+<p><code>/event</code></p>
+<p>[about events]</p>
+<h2 id="event_create-one">Create One</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/event -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/event HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /event</code></p>
+<p><em>Add a new event</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"collected_at"</span>: <span class="hljs-number">1234567000</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_beacon"</span>: <span class="hljs-number">5432543254325432</span>,
+  <span class="hljs-attr">"parent_sensor"</span>: <span class="hljs-number">678967896789</span>,
+  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
+}
+</code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:28:34.716Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517326114716</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {}
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#event-schema">Event</a></td>
+<td>Event object that needs to be added</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#event-schema">Event</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_create-many">Create Many</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/event -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/event HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /event</code></p>
+<p><em>Add many events</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[{
+  <span class="hljs-attr">"collected_at"</span>: <span class="hljs-number">1234567000</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_beacon"</span>: <span class="hljs-number">5432543254325432</span>,
+  <span class="hljs-attr">"parent_sensor"</span>: <span class="hljs-number">678967896789</span>,
+  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
+},{
+  <span class="hljs-attr">"collected_at"</span>: <span class="hljs-number">3214567000</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_beacon"</span>: <span class="hljs-number">5432543254325432</span>,
+  <span class="hljs-attr">"parent_sensor"</span>: <span class="hljs-number">678967896789</span>,
+  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">93</span>,
+  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
+}
+]
+</code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:30:38.308Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517326238308</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#event-schema">Events</a></td>
+<td>Array of event objects that need to be added</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#event-schema">Event</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_retrieve-one-by-id">Retrieve One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/event/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/event/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /event/{id}</code></p>
+<p><em>Retrieve a event by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:49:38.744Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327378744</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {}
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Event entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_retrieve-many-by-id">Retrieve Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/event/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/event/{id},{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /event/{id},{id},{id}</code></p>
+<p><em>Retrieve many events by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:52:55.965Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327575965</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: [] 
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Event entity ids separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_delete-one-by-id">Delete One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/event/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/event/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /event/{id}</code></p>
+<p><em>Delete a event by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:55:13.871Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327713871</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Event entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_delete-many-id">Delete Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/event/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/event/{id},{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /event/{id},{id},{id}</code></p>
+<p><em>Delete many events by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:57:57.367Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327877367</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Event entity id separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_update-one-by-id">Update One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/event -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/event HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>PUT /event</code></p>
+<p><em>Update an existing event</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{ 
+    <span class="hljs-attr">"5655778694266880"</span>: {
+	  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">0987098709870987</span>,
+    }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#event-schema">Event</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="event_update-many-by-id">Update Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/event -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/event HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>PUT /event</code></p>
+<p><em>Update many existing events</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{   
+    <span class="hljs-attr">"5655778694266880"</span>: {
+	  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">8765876587658765</span>
+    },
+    <span class="hljs-attr">"5092828740845568"</span>: {
+	  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">3456345634563456</span>
+    }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>,
+      <span class="hljs-string">"5092828740845568"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#event-schema">Event</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="-org">/org</h1>
 <h1 id="-sensor">/sensor</h1>
 <h1 id="schemas">Schemas</h1>
@@ -2384,6 +3128,252 @@ Host</span>: api.signal.bio
 </tr>
 </tbody>
 </table>
+<h2 id="client-schema">Client</h2>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"collected_at"</span>: <span class="hljs-number">1234567000</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_beacon"</span>: <span class="hljs-number">5432543254325432</span>,
+  <span class="hljs-attr">"parent_sensor"</span>: <span class="hljs-number">678967896789</span>,
+  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
+}
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"beacon_id"</span>: <span class="hljs-string">"014DB0FE-06D4-4FE3-A81F-14037E8701AA"</span>,
+  <span class="hljs-attr">"beacon_env"</span>: <span class="hljs-string">"iOS 9.0"</span>,
+  <span class="hljs-attr">"beacon_type"</span>: <span class="hljs-string">"iphone"</span>,
+  <span class="hljs-attr">"beacon_version"</span>: <span class="hljs-string">"1.1.1/34"</span>,
+  <span class="hljs-attr">"beacon_last_event"</span>: {
+    <span class="hljs-attr">"foo"</span>: <span class="hljs-string">"bar"</span>
+  },
+  <span class="hljs-attr">"parent_org"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"1234123412341234"</span>
+    ]
+  },
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
+}
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td>true</td>
+<td>The id of this beacon's parent org</td>
+</tr>
+<tr>
+<td>beacon_id</td>
+<td>String</td>
+<td>true</td>
+<td>Custom local id of this device</td>
+</tr>
+<tr>
+<td>beacon_env</td>
+<td>String</td>
+<td>true</td>
+<td>Device OS or model (including version)</td>
+</tr>
+<tr>
+<td>beacon_type</td>
+<td>String</td>
+<td>true</td>
+<td>Device type</td>
+</tr>
+<tr>
+<td>beacon_version</td>
+<td>String</td>
+<td>true</td>
+<td>Version number of the Signal app</td>
+</tr>
+<tr>
+<td>beacon_last_event</td>
+<td>Object(<a href="#event-schema">Event</a>)</td>
+<td>false</td>
+<td>The last event captured by this beacon</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appended-values">Appended Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Id of the entity</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>When the entity was created</td>
+</tr>
+<tr>
+<td>modified_at</td>
+<td>When the entity was last modified</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td>Object(Key)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="client-schema">Client</h2>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
+  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">432143214321432</span>
+}
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"client_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+  <span class="hljs-attr">"client_name"</span>: <span class="hljs-string">"My first client"</span>,
+  <span class="hljs-attr">"parent_org"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"1234123412341234"</span>
+    ]
+  },
+  <span class="hljs-attr">"parent_user"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"4321432143214321"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"4321432143214321"</span>
+    ]
+  },
+  <span class="hljs-attr">"client_secret"</span>: <span class="hljs-string">"$2a$10$L/GOsc5v4lw/iUzuYDOUH.zBEMb1fbYrFlJJXtLTYC78lG.1nl.Fa"</span>,
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>
+}
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>String</td>
+<td>true</td>
+<td>User defined id for the client</td>
+</tr>
+<tr>
+<td>client_name</td>
+<td>String</td>
+<td>true</td>
+<td>User defined common name for the client</td>
+</tr>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td><em>true</em></td>
+<td>The id of this beacon's parent org</td>
+</tr>
+<tr>
+<td>parent_user</td>
+<td>Number</td>
+<td><em>true</em></td>
+<td>The id of this client's parent org*</td>
+</tr>
+</tbody>
+</table>
+<p>* <em>DEPRECATED</em> do not use</p>
+<h3 id="appended-values">Appended Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>created_at</td>
+<td>When the entity was created</td>
+</tr>
+<tr>
+<td>modified_at</td>
+<td>When the entity was last modified</td>
+</tr>
+<tr>
+<td>client_secret</td>
+<td>Generated on creation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent_org</td>
+<td>Integer</td>
+<td>Object(Key)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h1 id="errors">Errors</h1>
 <p>The <code>ox</code> API uses the following error codes:</p>
 <table>
@@ -2400,7 +3390,11 @@ Host</span>: api.signal.bio
 </tr>
 <tr>
 <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">401</a></td>
-<td>Unauthorized — Your API key is wrong</td>
+<td>Unauthorized — Your JWT token is invalid</td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">403</a></td>
+<td>Forbidden — Your API key is wrong</td>
 </tr>
 <tr>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">404</a></td>

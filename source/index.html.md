@@ -1346,6 +1346,489 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
+
 # /event
+
+`/event`
+
+[about events]
+
+<h2 id="event_create-one">Create One</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/event -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/event HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /event`
+
+*Add a new event*
+
+> Body parameter
+
+```json
+{
+  "collected_at": 1234567000,
+  "parent_org": 1234123412341234,
+  "parent_beacon": 5432543254325432,
+  "parent_sensor": 678967896789,
+  "event_reading": 123,
+  "event_type": "heart_rate"
+}
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:28:34.716Z",
+  "timestamp": 1517326114716,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {}
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Event](#event-schema)|Event object that needs to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Event](#event-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_create-many">Create Many</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/event -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/event HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /event`
+
+*Add many events*
+
+> Body parameter
+
+```json
+[{
+  "collected_at": 1234567000,
+  "parent_org": 1234123412341234,
+  "parent_beacon": 5432543254325432,
+  "parent_sensor": 678967896789,
+  "event_reading": 123,
+  "event_type": "heart_rate"
+},{
+  "collected_at": 3214567000,
+  "parent_org": 1234123412341234,
+  "parent_beacon": 5432543254325432,
+  "parent_sensor": 678967896789,
+  "event_reading": 93,
+  "event_type": "heart_rate"
+}
+]
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:30:38.308Z",
+  "timestamp": 1517326238308,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Events](#event-schema)|Array of event objects that need to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Event](#event-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_retrieve-one-by-id">Retrieve One by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/event/{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/event/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /event/{id}`
+
+*Retrieve a event by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {}
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Event entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_retrieve-many-by-id">Retrieve Many by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/event/{id},{id},{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/event/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /event/{id},{id},{id}`
+
+*Retrieve many events by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:52:55.965Z",
+  "timestamp": 1517327575965,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": [] 
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Event entity ids separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_delete-one-by-id">Delete One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/event/{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/event/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /event/{id}`
+
+*Delete a event by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:55:13.871Z",
+  "timestamp": 1517327713871,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Event entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_delete-many-id">Delete Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/event/{id},{id},{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/event/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /event/{id},{id},{id}`
+
+*Delete many events by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:57:57.367Z",
+  "timestamp": 1517327877367,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Event entity id separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_update-one-by-id">Update One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/event -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/event HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /event`
+
+*Update an existing event*
+
+> Body parameter
+
+```json
+{ 
+    "5655778694266880": {
+	  "parent_org": 0987098709870987,
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Event](#event-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="event_update-many-by-id">Update Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/event -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/event HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /event`
+
+*Update many existing events*
+
+> Body parameter
+
+```json
+{   
+    "5655778694266880": {
+	  "parent_org": 8765876587658765
+    },
+    "5092828740845568": {
+	  "parent_org": 3456345634563456
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880",
+      "5092828740845568"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Event](#event-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 # /org
 # /sensor
