@@ -271,4 +271,92 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |Property|From|To|
 |-|-|-|
 |parent_org|Integer|Object(Key)|
-|
+|parent_user|Integer|Object(Key)\*|
+
+\* *DEPRECATED* do not use
+
+
+<h2 id="event-schema">Event</h2>
+
+> Request Payload
+
+```json
+{
+  "parent_org": 1234123412341234,
+  "event_beacon": 5432543254325432,
+  "event_sensor": 678967896789,
+  "event_reading": 123,
+  "event_type": "heart_rate",
+  "event_timestamp": 1234567000,
+}
+```
+
+> Return Payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "created_at": "2018-02-05T20:18:25.706Z",
+    "parent_org": {
+      "id": "1234123412341234",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412341234"
+      ]
+    },
+    "event_beacon": {
+      "id": "5432543254325432",
+      "kind": "Beacon",
+      "path": [
+        "Beacon",
+        "5432543254325432"
+      ]
+    },
+    "event_sensor": {
+      "id": "678967896789",
+      "kind": "Sensor",
+      "path": [
+        "Sensor",
+        "678967896789"
+      ]
+    },
+    "event_timestamp": 1234567000,
+    "event_reading": 123,
+    "event_type": "heart_rate"
+  } 
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|-|-|-|-|
+|parent_org|Integer|_true_|The id of this beacon's parent org|
+|event_beacon|Integer|_true_|The id of this beacon's parent beacon|
+|event_sensor|Integer|_true_|The id of this beacon's parent sensor|
+|event_timestamp|Integer|_true_|POSIX timestamp at measurement|
+|event_reading|Integer|_true_|Sensor measurement|
+|event_type|Integer|_true_|Measurement type|
+
+### Appended Values
+
+|Property|Description|
+|-|-|
+|created_at|When the entity was created|
+|modified_at|When the entity was last modified|
+
+### Modified Values
+
+|Property|From|To|
+|-|-|-|
+|parent_org|Integer|Object(Key)|
+|event_beacon|Integer|Object(Key)|
+|event_sensor|Integer|Object(Key)|

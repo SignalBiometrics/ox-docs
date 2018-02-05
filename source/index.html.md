@@ -1351,7 +1351,9 @@ Authorization: bearer {jwt}
 
 `/event`
 
-[about events]
+Events are the fragment of information that we store on the backend. It consist of a sensor value of a biometric measurement, along with a timestamp and information about the entities owning this event (sensor, beacon, beacon)
+
+These events are aggregated and can be queried, however they are hardly ever created through the API: they are generally created when a sensor entity's `last_event` property is updated in our realtime database
 
 <h2 id="event_create-one">Create One</h2>
 
@@ -1376,12 +1378,12 @@ Authorization: bearer {jwt}
 
 ```json
 {
-  "collected_at": 1234567000,
   "parent_org": 1234123412341234,
-  "parent_beacon": 5432543254325432,
-  "parent_sensor": 678967896789,
+  "event_beacon": 5432543254325432,
+  "event_sensor": 678967896789,
   "event_reading": 123,
-  "event_type": "heart_rate"
+  "event_type": "heart_rate",
+  "event_timestamp": 1234567000,
 }
 ```
 
@@ -1396,7 +1398,12 @@ Authorization: bearer {jwt}
   "code": 200,
   "status": "success",
   "message": "Call successful",
-  "data": {}
+  "data": {
+  "ids": [
+    "4873960965537792"
+  ],
+    "info": "done"
+  }
 }
 ```
 
@@ -1439,21 +1446,20 @@ Authorization: bearer {jwt}
 
 ```json
 [{
-  "collected_at": 1234567000,
   "parent_org": 1234123412341234,
-  "parent_beacon": 5432543254325432,
-  "parent_sensor": 678967896789,
+  "event_beacon": 5432543254325432,
+  "event_sensor": 678967896789,
   "event_reading": 123,
-  "event_type": "heart_rate"
+  "event_type": "heart_rate",
+  "event_timestamp": 1234567000,
 },{
-  "collected_at": 3214567000,
   "parent_org": 1234123412341234,
-  "parent_beacon": 5432543254325432,
-  "parent_sensor": 678967896789,
-  "event_reading": 93,
-  "event_type": "heart_rate"
-}
-]
+  "event_beacon": 5432543254325432,
+  "event_sensor": 678967896789,
+  "event_reading": 123,
+  "event_type": "heart_rate",
+  "event_timestamp": 1234567000,
+}]
 ```
 
 > Success response
@@ -1515,15 +1521,35 @@ Authorization: bearer {jwt}
 
 ```json
 {
-  "program": "ox",
-  "version": "0.0.5",
-  "datetime": "2018-01-30T15:49:38.744Z",
-  "timestamp": 1517327378744,
-  "code": 200,
-  "status": "success",
-  "message": "Call successful",
-  "data": {}
-}
+  "created_at": "2018-02-05T20:18:25.706Z",
+  "parent_org": {
+    "id": "1234123412341234",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "1234123412341234"
+    ]
+  },
+  "event_beacon": {
+    "id": "5432543254325432",
+    "kind": "Beacon",
+    "path": [
+      "Beacon",
+      "5432543254325432"
+    ]
+  },
+  "event_sensor": {
+    "id": "678967896789",
+    "kind": "Sensor",
+    "path": [
+      "Sensor",
+      "678967896789"
+    ]
+  },
+  "event_timestamp": 1234567000,
+  "event_reading": 123,
+  "event_type": "heart_rate"
+} 
 ```
 
 ### Parameters
@@ -1562,16 +1588,38 @@ Authorization: bearer {jwt}
 > Success response
 
 ```json
-{
-  "program": "ox",
-  "version": "0.0.5",
-  "datetime": "2018-01-30T15:52:55.965Z",
-  "timestamp": 1517327575965,
-  "code": 200,
-  "status": "success",
-  "message": "Call successful",
-  "data": [] 
-}
+[{
+  "created_at": "2018-02-05T20:18:25.706Z",
+  "parent_org": {
+    "id": "1234123412341234",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "1234123412341234"
+    ]
+  },
+  "event_beacon": {
+    "id": "5432543254325432",
+    "kind": "Beacon",
+    "path": [
+      "Beacon",
+      "5432543254325432"
+    ]
+  },
+  "event_sensor": {
+    "id": "678967896789",
+    "kind": "Sensor",
+    "path": [
+      "Sensor",
+      "678967896789"
+    ]
+  },
+  "event_timestamp": 1234567000,
+  "event_reading": 123,
+  "event_type": "heart_rate"
+},
+{event},
+{event}]
 ```
 
 ### Parameters
