@@ -1879,4 +1879,516 @@ Authorization: bearer {jwt}
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
 # /org
+
+`/org`
+
+<h2 id="org_create-one">Create One</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/org -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/org HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /org`
+
+*Add a new org*
+
+> Body parameter
+
+```json
+{
+ "org_owner": 5432543254325432,
+ "org_active": true,
+  "org_sensors": {
+    "1234567890981111": 1515513411000
+  },
+  "org_beacons": {
+    "1234567890987654": 1515513419829
+  },
+  "org_users": {
+    "1234567890988888": 1515513419829
+  },
+  "org_alias": "FastCars Co.",
+  "org_clients": {
+    "1234567890987777": 1515513411000
+  }
+}
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-02-14T12:50:10.658Z",
+  "timestamp": 1518612610658,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5713106038685696"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Org](#org-schema)|Org object that needs to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Org](#org-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_create-many">Create Many</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/org -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/org HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /org`
+
+*Add many orgs*
+
+> Body parameter
+
+```json
+[{
+ "org_owner": 5432543254325432,
+ "org_active": true,
+  "org_sensors": {
+    "1234567890981111": 1515513411000
+  },
+  "org_beacons": {
+    "1234567890987654": 1515513419829
+  },
+  "org_users": {
+    "1234567890988888": 1515513419829
+  },
+  "org_alias": "FastCars Co.",
+  "org_clients": {
+    "1234567890987777": 1515513411000
+  }
+},{
+ "org_owner": 5432543254325643,
+ "org_active": true,
+  "org_sensors": {
+    "1234567890983331": 1515513411333
+  },
+  "org_beacons": {
+    "1234567890983211": 1515513419444
+  },
+  "org_users": {
+    "1234567890983543": 1515513419666
+  },
+  "org_alias": "FastCars Co.",
+  "org_clients": {
+    "1234567890981234": 1515513417777
+  }
+}]
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:30:38.308Z",
+  "timestamp": 1517326238308,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Orgs](#org-schema)|Array of org objects that need to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Org](#org-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+
+<h2 id="org_retrieve-one-by-id">Retrieve One by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/org/{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/org/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /org/{id}`
+
+*Retrieve a org by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:49:38.744Z",
+  "timestamp": 1517327378744,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": ,
+  "created_at": "2018-01-16T23:25:25.685Z",
+  "modified_at": "2018-05-17T11:36:55.907Z",
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Org entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_retrieve-many-by-id">Retrieve Many by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/org/{id},{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/org/{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /org/{id},{id}`
+
+*Retrieve many orgs by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:52:55.965Z",
+  "timestamp": 1517327575965,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": []
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Org entity ids separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_delete-one-by-id">Delete One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/org/{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/org/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /org/{id}`
+
+*Delete a org by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:55:13.871Z",
+  "timestamp": 1517327713871,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Org entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_delete-many-id">Delete Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/org/{id},{id},{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/org/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /org/{id},{id},{id}`
+
+*Delete many orgs by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:57:57.367Z",
+  "timestamp": 1517327877367,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Org entity id separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_update-one-by-id">Update One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/org -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/org HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /org`
+
+*Update an existing org*
+
+> Body parameter
+
+```json
+{ 
+    "5655778694266880": {
+        "org_name": "new device name",
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Org](#org-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="org_update-many-by-id">Update Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/org -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/org HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /org`
+
+*Update many existing orgs*
+
+> Body parameter
+
+```json
+{   
+    "5655778694266880": {
+        "org_type": "very new device name",
+    },
+    "5092828740845568": {
+        "org_type": "very very new device name",
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880",
+      "5092828740845568"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Org](#org-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
 # /sensor
