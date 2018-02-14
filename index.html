@@ -299,11 +299,6 @@ window.onpopstate = function() {
                   </li>
                 
                   <li>
-                    <a href="#org_issue-token" class="toc-h2 toc-link" data-title="Issue Token">Issue Token</a>
-                    
-                  </li>
-                
-                  <li>
                     <a href="#org_retrieve-one-by-id" class="toc-h2 toc-link" data-title="Retrieve One by Id">Retrieve One by Id</a>
                     
                   </li>
@@ -368,7 +363,17 @@ window.onpopstate = function() {
                   </li>
                 
                   <li>
-                    <a href="#event-schema" class="toc-h2 toc-link" data-title="Event">Event</a>
+                    <a href="#sensor-schema" class="toc-h2 toc-link" data-title="Sensor">Sensor</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#key-schema" class="toc-h2 toc-link" data-title="Key">Key</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#idmap-schema" class="toc-h2 toc-link" data-title="Schema">Schema</a>
                     
                   </li>
                 
@@ -2977,6 +2982,8 @@ Host</span>: api.signal.bio
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="-org">/org</h1>
 <p><code>/org</code></p>
+<p>Org are the top entities of our datastructure, and superseed or hold permission over all others. An organisation contains child beacons, users, clients, and sensors and it is itself owned by a user (or another org)</p>
+<p>Every child element can be enabled or disabled at the organisation level (see the <a href="#idmap-schema">IdMap schema</a>)</p>
 <h2 id="org_create-one">Create One</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3044,8 +3051,8 @@ Host</span>: api.signal.bio
 <tr>
 <td>body</td>
 <td>body</td>
-<td><a href="#client-schema">Client</a></td>
-<td>Client object that needs to be added</td>
+<td><a href="#org-schema">Org</a></td>
+<td>Org object that needs to be added</td>
 </tr>
 </tbody>
 </table>
@@ -3070,7 +3077,7 @@ Host</span>: api.signal.bio
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
 <td>Invalid payload</td>
-<td><a href="#client-schema">Client</a></td>
+<td><a href="#org-schema">Org</a></td>
 </tr>
 <tr>
 <td>401</td>
@@ -3080,10 +3087,8 @@ Host</span>: api.signal.bio
 </tr>
 </tbody>
 </table>
-<aside class="notice">The clear text API key is returned in <code>data.org_api_key</code></aside>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h2 id="org_create-many">Create Many</h2>
-<aside class="warning">Not implemented</aside>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3100,17 +3105,38 @@ Host</span>: api.signal.bio
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>[{
-  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
-  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">4321432143214321</span>,
-  <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"My first org"</span>,
-  <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"ipad/123"</span>,
+ <span class="hljs-attr">"org_owner"</span>: <span class="hljs-number">5432543254325432</span>,
+ <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"org_sensors"</span>: {
+    <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+  },
+  <span class="hljs-attr">"org_beacons"</span>: {
+    <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>
+  },
+  <span class="hljs-attr">"org_users"</span>: {
+    <span class="hljs-attr">"1234567890988888"</span>: <span class="hljs-number">1515513419829</span>
+  },
+  <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"FastCars Co."</span>,
+  <span class="hljs-attr">"org_clients"</span>: {
+    <span class="hljs-attr">"1234567890987777"</span>: <span class="hljs-number">1515513411000</span>
+  }
 },{
-  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
-  <span class="hljs-attr">"parent_user"</span>: <span class="hljs-number">4321432143214321</span>,
-  <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"My second org"</span>,
-  <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"ipod/777"</span>,
-}
-]
+ <span class="hljs-attr">"org_owner"</span>: <span class="hljs-number">5432543254325643</span>,
+ <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"org_sensors"</span>: {
+    <span class="hljs-attr">"1234567890983331"</span>: <span class="hljs-number">1515513411333</span>
+  },
+  <span class="hljs-attr">"org_beacons"</span>: {
+    <span class="hljs-attr">"1234567890983211"</span>: <span class="hljs-number">1515513419444</span>
+  },
+  <span class="hljs-attr">"org_users"</span>: {
+    <span class="hljs-attr">"1234567890983543"</span>: <span class="hljs-number">1515513419666</span>
+  },
+  <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"FastCars Co."</span>,
+  <span class="hljs-attr">"org_clients"</span>: {
+    <span class="hljs-attr">"1234567890981234"</span>: <span class="hljs-number">1515513417777</span>
+  }
+}]
 </code></pre>
 <blockquote>
 <p>Success response</p>
@@ -3146,7 +3172,7 @@ Host</span>: api.signal.bio
 <tr>
 <td>body</td>
 <td>body</td>
-<td><a href="#client-schema">Clients</a></td>
+<td><a href="#org-schema">Orgs</a></td>
 <td>Array of org objects that need to be added</td>
 </tr>
 </tbody>
@@ -3172,7 +3198,7 @@ Host</span>: api.signal.bio
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
 <td>Invalid payload</td>
-<td><a href="#client-schema">Client</a></td>
+<td><a href="#org-schema">Org</a></td>
 </tr>
 <tr>
 <td>401</td>
@@ -3182,109 +3208,6 @@ Host</span>: api.signal.bio
 </tr>
 </tbody>
 </table>
-<aside class="warning">Not implemented</aside>
-<h2 id="org_issue-token">Issue Token</h2>
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/org/token/{parent_org}/{org_id}/{org_api_key} -H <span class="hljs-string">"{headers}"</span>
-</code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/org/token/{parent_org}/{org_id}/{org_api_key} HTTPS/1.1
-Host</span>: api.signal.bio
-</code></pre>
-<p><code>GET /org/tokent/{parent_org}/{org_id}/{org_api_key}</code></p>
-<p><em>Retrieve a JSON Web Token signed with an API key</em></p>
-<blockquote>
-<p>Success response</p>
-</blockquote>
-<pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
-  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
-  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:49:38.744Z"</span>,
-  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327378744</span>,
-  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
-  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
-  <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"parent_user"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4321432143214321"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"User"</span>,
-      <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"User"</span>,
-        <span class="hljs-string">"4321432143214321"</span>
-      ]
-    },
-    <span class="hljs-attr">"org_secret"</span>: <span class="hljs-string">"$2a$10$L/GOsc5v4lw/iUzuYDOUH.zBEMb1fbYrFlJJXtLTYC78lG.1nl.Fa"</span>,
-    <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"baz"</span>,
-    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-01T12:58:37.574Z"</span>,
-    <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-      <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"1234123412341234"</span>
-      ]
-    },
-    <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-01T12:58:37.579Z"</span>,
-    <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"booboo"</span>,
-    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJlbnRfb3JnIjp7ImlkIjoiMTIzNDEyMzQxMjM0MTIzNCIsImtpbmQiOiJPcmciLCJwYXRoIjpbIk9yZyIsIjEyMzQxMjM0MTIzNDEyMzQiXX0sInBhcmVudF91c2VyIjp7ImlkIjoiNDMyMTQzMjE0MzIxNDMyMSIsImtpbmQiOiJVc2VyIiwicGF0aCI6WyJVc2VyIiwiNDMyMTQzMjE0MzIxNDMyMSJdfSwiY2xpZW50X2lkIjoiYmF6IiwiY2xpZW50X25hbWUiOiJib29ib28iLCJpYXQiOjE1MTc1MDgxMDMsImV4cCI6MTUxNzc2NzMwM30.iizTopa0Zr0ddcmi8Htu4dcN_lpFrTdzoblDyt33bls"</span>
-  },
-  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
-  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
-}
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>In</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>url</td>
-<td>Integer</td>
-<td>Client entity id</td>
-</tr>
-</tbody>
-</table>
-<h3 id="responses">Responses</h3>
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200</td>
-<td>OK</td>
-<td>Request was successful</td>
-<td>None</td>
-</tr>
-<tr>
-<td>403</td>
-<td><a href="#errors">Forbidden</a></td>
-<td>The API key does not match the one stored</td>
-<td>None</td>
-</tr>
-<tr>
-<td>404</td>
-<td><a href="#errors">Not Found</a></td>
-<td>The org was not found</td>
-<td>None</td>
-</tr>
-</tbody>
-</table>
-<aside class="notice">The JWT in <code>data.token</code> his used to authenticate our requests</aside>
-<aside class="success">This endpoint does not require authentication</aside>
 <h2 id="org_retrieve-one-by-id">Retrieve One by Id</h2>
 <blockquote>
 <p>Code samples</p>
@@ -3303,33 +3226,41 @@ Host</span>: api.signal.bio
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
   <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
-  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:49:38.744Z"</span>,
-  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327378744</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-02-14T17:06:43.393Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1518628003393</span>,
   <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
   <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
   <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"ipad/123"</span>,
-    <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"My first org"</span>,
+    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-05T20:18:25.706Z"</span>,
     <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
       <span class="hljs-attr">"path"</span>: [
         <span class="hljs-string">"Org"</span>,
         <span class="hljs-string">"1234123412341234"</span>
-        ]
+      ]
     },
-    <span class="hljs-attr">"parent_user"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"4321432143214321"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"event_beacon"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5432543254325432"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Beacon"</span>,
       <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"4321432143214321"</span>
-        ]
+        <span class="hljs-string">"Beacon"</span>,
+        <span class="hljs-string">"5432543254325432"</span>
+      ]
     },
-  },
-  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-16T23:25:25.685Z"</span>,
-  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-05-17T11:36:55.907Z"</span>,
+    <span class="hljs-attr">"event_sensor"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"678967896789"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Sensor"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Sensor"</span>,
+        <span class="hljs-string">"678967896789"</span>
+      ]
+    },
+    <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1234567000</span>,
+    <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
+    <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
+  }
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
@@ -3347,7 +3278,7 @@ Host</span>: api.signal.bio
 <td>id</td>
 <td>url</td>
 <td>Integer</td>
-<td>Client entity id</td>
+<td>Org entity id</td>
 </tr>
 </tbody>
 </table>
@@ -3381,13 +3312,13 @@ Host</span>: api.signal.bio
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/org/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/org/{id},{id} -H <span class="hljs-string">"{headers}"</span>
 </code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/org/{id},{id},{id} HTTPS/1.1
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/org/{id},{id} HTTPS/1.1
 Host</span>: api.signal.bio
 <span class="hljs-attribute">Authorization</span>: bearer {jwt}
 </code></pre>
-<p><code>GET /org/{id},{id},{id}</code></p>
+<p><code>GET /org/{id},{id}</code></p>
 <p><em>Retrieve many orgs by id</em></p>
 <blockquote>
 <p>Success response</p>
@@ -3395,35 +3326,73 @@ Host</span>: api.signal.bio
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
   <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
-  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:52:55.965Z"</span>,
-  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327575965</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-02-14T17:09:04.125Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1518628144125</span>,
   <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
   <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
-  <span class="hljs-attr">"data"</span>: [{
-    <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"ipad/123"</span>,
-    <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"My first org"</span>,
-    <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-      <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"1234123412341234"</span>
+  <span class="hljs-attr">"data"</span>: [
+    {
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-09T16:11:43.148Z"</span>,
+      <span class="hljs-attr">"org_owner"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234432112344321"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"User"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"User"</span>,
+          <span class="hljs-string">"1234432112344321"</span>
         ]
+      },
+      <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"org_sensors"</span>: {
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>,
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>
+      },
+      <span class="hljs-attr">"org_beacons"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"goo"</span>,
+      <span class="hljs-attr">"org_users"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"org_clients"</span>: {
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>,
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>
+      },
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-09T16:11:43.148Z"</span>
     },
-  },
-  {
-    <span class="hljs-attr">"org_id"</span>: <span class="hljs-string">"iphone/777"</span>,
-    <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"My second org"</span>,
-    <span class="hljs-attr">"parent_org"</span>: {
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"1234123412341234"</span>,
-      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-      <span class="hljs-attr">"path"</span>: [
-        <span class="hljs-string">"Org"</span>,
-        <span class="hljs-string">"1234123412341234"</span>
+    {
+      <span class="hljs-attr">"org_clients"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-01-09T16:07:31.373Z"</span>,
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-01-09T16:07:31.374Z"</span>,
+      <span class="hljs-attr">"org_owner"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234432112344321"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"User"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"User"</span>,
+          <span class="hljs-string">"1234432112344321"</span>
         ]
+      },
+      <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"org_sensors"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"org_beacons"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"org_users"</span>: {
+        <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>,
+        <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
+      },
+      <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"goo"</span>
     }
-  }]
+  ]
 }
 </code></pre>
 <h3 id="parameters">Parameters</h3>
@@ -3441,7 +3410,7 @@ Host</span>: api.signal.bio
 <td>ids</td>
 <td>url</td>
 <td>Integer</td>
-<td>Client entity ids separated by commas</td>
+<td>Org entity ids separated by commas</td>
 </tr>
 </tbody>
 </table>
@@ -3517,7 +3486,7 @@ Host</span>: api.signal.bio
 <td>id</td>
 <td>url</td>
 <td>Integer</td>
-<td>Client entity id</td>
+<td>Org entity id</td>
 </tr>
 </tbody>
 </table>
@@ -3594,7 +3563,7 @@ Host</span>: api.signal.bio
 <td>ids</td>
 <td>url</td>
 <td>Integer</td>
-<td>Client entity id separated by commas</td>
+<td>Org entity id separated by commas</td>
 </tr>
 </tbody>
 </table>
@@ -3642,7 +3611,7 @@ Host</span>: api.signal.bio
 </blockquote>
 <pre class="highlight tab tab-json"><code>{ 
     <span class="hljs-attr">"5655778694266880"</span>: {
-        <span class="hljs-attr">"org_name"</span>: <span class="hljs-string">"new device name"</span>,
+        <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">false</span>
     }
 }
 </code></pre>
@@ -3705,7 +3674,7 @@ Host</span>: api.signal.bio
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
 <td>Invalid payload</td>
-<td><a href="#client-schema">Client</a></td>
+<td><a href="#org-schema">Org</a></td>
 </tr>
 <tr>
 <td>401</td>
@@ -3734,10 +3703,10 @@ Host</span>: api.signal.bio
 </blockquote>
 <pre class="highlight tab tab-json"><code>{   
     <span class="hljs-attr">"5655778694266880"</span>: {
-        <span class="hljs-attr">"org_type"</span>: <span class="hljs-string">"very new device name"</span>,
+        <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">false</span> 
     },
     <span class="hljs-attr">"5092828740845568"</span>: {
-        <span class="hljs-attr">"org_type"</span>: <span class="hljs-string">"very very new device name"</span>,
+        <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"New Company Name Inc."</span>
     }
 }
 </code></pre>
@@ -3801,7 +3770,7 @@ Host</span>: api.signal.bio
 <td>400</td>
 <td><a href="#errors">Bad Request</a></td>
 <td>Invalid payload</td>
-<td><a href="#client-schema">Client</a></td>
+<td><a href="#org-schema">Org</a></td>
 </tr>
 <tr>
 <td>401</td>
@@ -3936,7 +3905,7 @@ Host</span>: api.signal.bio
 <tr>
 <td>parent_org</td>
 <td>Integer</td>
-<td>Object(Key)</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -4035,7 +4004,7 @@ Host</span>: api.signal.bio
 </tr>
 <tr>
 <td>client_secret</td>
-<td>Generated on creation</td>
+<td>API key hashed on creation</td>
 </tr>
 </tbody>
 </table>
@@ -4052,12 +4021,12 @@ Host</span>: api.signal.bio
 <tr>
 <td>parent_org</td>
 <td>Integer</td>
-<td>Object(Key)</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
 </tr>
 <tr>
 <td>parent_user</td>
 <td>Integer</td>
-<td>Object(Key)</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -4127,34 +4096,22 @@ Host</span>: api.signal.bio
 <td>The id of this beacon's parent org</td>
 </tr>
 <tr>
-<td>beacon_id</td>
+<td>event_timestamp</td>
 <td>String</td>
 <td>true</td>
-<td>Custom local id of this device</td>
+<td>When did this event happen</td>
 </tr>
 <tr>
-<td>beacon_env</td>
+<td>event_reading</td>
+<td>Integer</td>
+<td>true</td>
+<td>Value of the event's reading</td>
+</tr>
+<tr>
+<td>event_type</td>
 <td>String</td>
 <td>true</td>
-<td>Device OS or model (including version)</td>
-</tr>
-<tr>
-<td>beacon_type</td>
-<td>String</td>
-<td>true</td>
-<td>Device type</td>
-</tr>
-<tr>
-<td>beacon_version</td>
-<td>String</td>
-<td>true</td>
-<td>Version number of the Signal app</td>
-</tr>
-<tr>
-<td>beacon_last_event</td>
-<td>Object(<a href="#event-schema">Event</a>)</td>
-<td>false</td>
-<td>The last event captured by this beacon</td>
+<td>Type of the collected event</td>
 </tr>
 </tbody>
 </table>
@@ -4190,7 +4147,17 @@ Host</span>: api.signal.bio
 <tr>
 <td>parent_org</td>
 <td>Integer</td>
-<td>Object(Key)</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
+</tr>
+<tr>
+<td>event_sensor</td>
+<td>Integer</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
+</tr>
+<tr>
+<td>event_beacon</td>
+<td>Integer</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -4201,19 +4168,19 @@ Host</span>: api.signal.bio
 <pre class="highlight tab tab-json"><code>{
  <span class="hljs-attr">"org_owner"</span>: <span class="hljs-number">5432543254325432</span>,
  <span class="hljs-attr">"org_active"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"org_sensors"</span>: {
+ <span class="hljs-attr">"org_sensors"</span>: {
     <span class="hljs-attr">"1234567890981111"</span>: <span class="hljs-number">1515513411000</span>
-  },
-  <span class="hljs-attr">"org_beacons"</span>: {
-    <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>
-  },
-  <span class="hljs-attr">"org_users"</span>: {
-    <span class="hljs-attr">"1234567890988888"</span>: <span class="hljs-number">1515513419829</span>
-  },
-  <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"FastCars Co."</span>,
-  <span class="hljs-attr">"org_clients"</span>: {
-    <span class="hljs-attr">"1234567890987777"</span>: <span class="hljs-number">1515513411000</span>
-  }
+ },
+ <span class="hljs-attr">"org_beacons"</span>: {
+   <span class="hljs-attr">"1234567890987654"</span>: <span class="hljs-number">1515513419829</span>
+ },
+ <span class="hljs-attr">"org_users"</span>: {
+   <span class="hljs-attr">"1234567890988888"</span>: <span class="hljs-number">1515513419829</span>
+ },
+ <span class="hljs-attr">"org_alias"</span>: <span class="hljs-string">"FastCars Co."</span>,
+ <span class="hljs-attr">"org_clients"</span>: {
+   <span class="hljs-attr">"1234567890987777"</span>: <span class="hljs-number">1515513411000</span>
+ }
 }
 </code></pre>
 <blockquote>
@@ -4263,131 +4230,35 @@ Host</span>: api.signal.bio
 <td>true</td>
 <td>The id of this org's owner</td>
 </tr>
-</tbody>
-</table>
-<h3 id="appended-values">Appended Values</h3>
-<table>
-<thead>
 <tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>created_at</td>
-<td>When the entity was created</td>
+<td>org_active</td>
+<td>Boolean</td>
+<td>true</td>
+<td>If this org is enabled or not</td>
 </tr>
 <tr>
-<td>modified_at</td>
-<td>When the entity was last modified</td>
-</tr>
-</tbody>
-</table>
-<h3 id="modified-values">Modified Values</h3>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>From</th>
-<th>To</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-<h2 id="event-schema">Event</h2>
-<blockquote>
-<p>Request Payload</p>
-</blockquote>
-<pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1234123412341234</span>,
-  <span class="hljs-attr">"event_beacon"</span>: <span class="hljs-number">5432543254325432</span>,
-  <span class="hljs-attr">"event_sensor"</span>: <span class="hljs-number">678967896789</span>,
-  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>,
-  <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1234567000</span>,
-}
-</code></pre>
-<blockquote>
-<p>Return Payload</p>
-</blockquote>
-<pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-05T20:18:25.706Z"</span>,
-  <span class="hljs-attr">"parent_org"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1234123412341234"</span>,
-    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
-    <span class="hljs-attr">"path"</span>: [
-      <span class="hljs-string">"Org"</span>,
-      <span class="hljs-string">"1234123412341234"</span>
-    ]
-  },
-  <span class="hljs-attr">"event_beacon"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5432543254325432"</span>,
-    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Beacon"</span>,
-    <span class="hljs-attr">"path"</span>: [
-      <span class="hljs-string">"Beacon"</span>,
-      <span class="hljs-string">"5432543254325432"</span>
-    ]
-  },
-  <span class="hljs-attr">"event_sensor"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"678967896789"</span>,
-    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Sensor"</span>,
-    <span class="hljs-attr">"path"</span>: [
-      <span class="hljs-string">"Sensor"</span>,
-      <span class="hljs-string">"678967896789"</span>
-    ]
-  },
-  <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1234567000</span>,
-  <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"event_type"</span>: <span class="hljs-string">"heart_rate"</span>
-} 
-</code></pre>
-<h3 id="properties">Properties</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>parent_org</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>The id of this beacon's parent org</td>
+<td>org_sensors</td>
+<td>Object(<a href="#idmap-schema">IdMap</a>)</td>
+<td>true</td>
+<td>Map of child sensors</td>
 </tr>
 <tr>
-<td>event_beacon</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>The id of this beacon's parent beacon</td>
+<td>org_beacons</td>
+<td>Object(<a href="#idmap-schema">IdMap</a>)</td>
+<td>true</td>
+<td>Map of child beacons</td>
 </tr>
 <tr>
-<td>event_sensor</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>The id of this beacon's parent sensor</td>
+<td>org_users</td>
+<td>Object(<a href="#idmap-schema">IdMap</a>)</td>
+<td>true</td>
+<td>Map of child users</td>
 </tr>
 <tr>
-<td>event_timestamp</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>POSIX timestamp at measurement</td>
-</tr>
-<tr>
-<td>event_reading</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>Sensor measurement</td>
-</tr>
-<tr>
-<td>event_type</td>
-<td>Integer</td>
-<td><em>true</em></td>
-<td>Measurement type</td>
+<td>org_client</td>
+<td>Object(<a href="#idmap-schema">IdMap</a>)</td>
+<td>true</td>
+<td>Map of child clients</td>
 </tr>
 </tbody>
 </table>
@@ -4421,22 +4292,15 @@ Host</span>: api.signal.bio
 </thead>
 <tbody>
 <tr>
-<td>parent_org</td>
+<td>org_owner</td>
 <td>Integer</td>
-<td>Object(Key)</td>
-</tr>
-<tr>
-<td>event_beacon</td>
-<td>Integer</td>
-<td>Object(Key)</td>
-</tr>
-<tr>
-<td>event_sensor</td>
-<td>Integer</td>
-<td>Object(Key)</td>
+<td>Object(<a href="#key-schema">Key</a>)</td>
 </tr>
 </tbody>
 </table>
+<h2 id="sensor-schema">Sensor</h2>
+<h2 id="key-schema">Key</h2>
+<h2 id="idmap-schema">Schema</h2>
 <h1 id="errors">Errors</h1>
 <p>The <code>ox</code> API uses the following error codes:</p>
 <table>

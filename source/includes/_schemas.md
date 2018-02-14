@@ -69,7 +69,7 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 
 |Property|From|To|
 |-|-|-|
-|parent_org|Integer|Object(Key)|
+|parent_org|Integer|Object([Key](#key-schema))|
 
 
 <h2 id="client-schema">Client</h2>
@@ -130,14 +130,14 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |-|-|
 |created_at|When the entity was created|
 |modified_at|When the entity was last modified|
-|client_secret|Generated on creation|
+|client_secret|API key hashed on creation|
 
 ### Modified Values
 
 |Property|From|To|
 |-|-|-|
-|parent_org|Integer|Object(Key)|
-|parent_user|Integer|Object(Key)|
+|parent_org|Integer|Object([Key](#key-schema))|
+|parent_user|Integer|Object([Key](#key-schema))|
 
 
 <h2 id="event-schema">Event</h2>
@@ -196,11 +196,9 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |Name|Type|Required|Description|
 |-|-|-|-|
 |parent_org|Integer|true|The id of this beacon's parent org|
-|beacon_id|String|true|Custom local id of this device|
-|beacon_env|String|true|Device OS or model (including version)|
-|beacon_type|String|true|Device type| 
-|beacon_version|String|true|Version number of the Signal app|
-|beacon_last_event|Object([Event](#event-schema))|false|The last event captured by this beacon|
+|event_timestamp|String|true|When did this event happen|
+|event_reading|Integer|true|Value of the event's reading|
+|event_type|String|true|Type of the collected event|
 
 ### Appended Values
 
@@ -213,7 +211,9 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 
 |Property|From|To|
 |-|-|-|
-|parent_org|Integer|Object(Key)|
+|parent_org|Integer|Object([Key](#key-schema))|
+|event_sensor|Integer|Object([Key](#key-schema))|
+|event_beacon|Integer|Object([Key](#key-schema))|
 
 
 <h2 id="org-schema">Org</h2>
@@ -224,19 +224,19 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 {
  "org_owner": 5432543254325432,
  "org_active": true,
-  "org_sensors": {
+ "org_sensors": {
     "1234567890981111": 1515513411000
-  },
-  "org_beacons": {
-    "1234567890987654": 1515513419829
-  },
-  "org_users": {
-    "1234567890988888": 1515513419829
-  },
-  "org_alias": "FastCars Co.",
-  "org_clients": {
-    "1234567890987777": 1515513411000
-  }
+ },
+ "org_beacons": {
+   "1234567890987654": 1515513419829
+ },
+ "org_users": {
+   "1234567890988888": 1515513419829
+ },
+ "org_alias": "FastCars Co.",
+ "org_clients": {
+   "1234567890987777": 1515513411000
+ }
 }
 ```
 
@@ -276,6 +276,11 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |Name|Type|Required|Description|
 |-|-|-|-|
 |org_owner|Integer|true|The id of this org's owner|
+|org_active|Boolean|true|If this org is enabled or not|
+|org_sensors|Object([IdMap](#idmap-schema))|true|Map of child sensors|
+|org_beacons|Object([IdMap](#idmap-schema))|true|Map of child beacons|
+|org_users|Object([IdMap](#idmap-schema))|true|Map of child users| 
+|org_client|Object([IdMap](#idmap-schema))|true|Map of child clients|
 
 ### Appended Values
 
@@ -288,6 +293,8 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 
 |Property|From|To|
 |-|-|-|
-
+|org_owner|Integer|Object([Key](#key-schema))|
 
 <h2 id="sensor-schema">Sensor</h2>
+<h2 id="key-schema">Key</h2>
+<h2 id="idmap-schema">Schema</h2>

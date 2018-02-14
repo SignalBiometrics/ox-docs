@@ -1882,6 +1882,12 @@ Authorization: bearer {jwt}
 
 `/org`
 
+Org are the top entities of our datastructure, and superseed or hold permission over all others. An organisation contains child beacons, users, clients, and sensors and it is itself owned by a user (or another org)  
+
+Every child element can be enabled or disabled at the organisation level (see the [IdMap schema](#idmap-schema))
+
+
+
 <h2 id="org_create-one">Create One</h2>
 
 > Code samples
@@ -2076,14 +2082,41 @@ Authorization: bearer {jwt}
 {
   "program": "ox",
   "version": "0.0.5",
-  "datetime": "2018-01-30T15:49:38.744Z",
-  "timestamp": 1517327378744,
+  "datetime": "2018-02-14T17:06:43.393Z",
+  "timestamp": 1518628003393,
   "code": 200,
   "status": "success",
   "message": "Call successful",
-  "data": ,
-  "created_at": "2018-01-16T23:25:25.685Z",
-  "modified_at": "2018-05-17T11:36:55.907Z",
+  "data": {
+    "created_at": "2018-02-05T20:18:25.706Z",
+    "parent_org": {
+      "id": "1234123412341234",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "1234123412341234"
+      ]
+    },
+    "event_beacon": {
+      "id": "5432543254325432",
+      "kind": "Beacon",
+      "path": [
+        "Beacon",
+        "5432543254325432"
+      ]
+    },
+    "event_sensor": {
+      "id": "678967896789",
+      "kind": "Sensor",
+      "path": [
+        "Sensor",
+        "678967896789"
+      ]
+    },
+    "event_timestamp": 1234567000,
+    "event_reading": 123,
+    "event_type": "heart_rate"
+  }
 }
 ```
 
@@ -2126,12 +2159,73 @@ Authorization: bearer {jwt}
 {
   "program": "ox",
   "version": "0.0.5",
-  "datetime": "2018-01-30T15:52:55.965Z",
-  "timestamp": 1517327575965,
+  "datetime": "2018-02-14T17:09:04.125Z",
+  "timestamp": 1518628144125,
   "code": 200,
   "status": "success",
   "message": "Call successful",
-  "data": []
+  "data": [
+    {
+      "modified_at": "2018-01-09T16:11:43.148Z",
+      "org_owner": {
+        "id": "1234432112344321",
+        "kind": "User",
+        "path": [
+          "User",
+          "1234432112344321"
+        ]
+      },
+      "org_active": true,
+      "org_sensors": {
+        "1234567890981111": 1515513411000,
+        "1234567890987654": 1515513419829
+      },
+      "org_beacons": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "org_alias": "goo",
+      "org_users": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "org_clients": {
+        "1234567890981111": 1515513411000,
+        "1234567890987654": 1515513419829
+      },
+      "created_at": "2018-01-09T16:11:43.148Z"
+    },
+    {
+      "org_clients": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "created_at": "2018-01-09T16:07:31.373Z",
+      "modified_at": "2018-01-09T16:07:31.374Z",
+      "org_owner": {
+        "id": "1234432112344321",
+        "kind": "User",
+        "path": [
+          "User",
+          "1234432112344321"
+        ]
+      },
+      "org_active": true,
+      "org_sensors": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "org_beacons": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "org_users": {
+        "1234567890987654": 1515513419829,
+        "1234567890981111": 1515513411000
+      },
+      "org_alias": "goo"
+    }
+  ]
 }
 ```
 
@@ -2281,7 +2375,7 @@ Authorization: bearer {jwt}
 ```json
 { 
     "5655778694266880": {
-        "org_name": "new device name",
+        "org_active": false
     }
 }
 ```
@@ -2346,10 +2440,10 @@ Authorization: bearer {jwt}
 ```json
 {   
     "5655778694266880": {
-        "org_type": "very new device name",
+        "org_active": false 
     },
     "5092828740845568": {
-        "org_type": "very very new device name",
+        "org_alias": "New Company Name Inc."
     }
 }
 ```
