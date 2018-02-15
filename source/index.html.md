@@ -1887,7 +1887,6 @@ Org are the top entities of our datastructure, and superseed or hold permission 
 Every child element can be enabled or disabled at the organisation level (see the [IdMap schema](#idmap-schema))
 
 
-
 <h2 id="org_create-one">Create One</h2>
 
 > Code samples
@@ -2110,8 +2109,8 @@ Authorization: bearer {jwt}
       "kind": "Sensor",
       "path": [
         "Sensor",
-        "678967896789"
       ]
+        "678967896789"
     },
     "event_timestamp": 1234567000,
     "event_reading": 123,
@@ -2485,4 +2484,530 @@ Authorization: bearer {jwt}
 
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 
+
 # /sensor
+
+`/sensor`
+
+Sensors are devices that pick up the events and broadcast them to beacons. A sensor could be an assembly doing both the acquisition (i.e. sensing device) and the broadcasting (i.e. the enclosure)  
+
+Sensors can be provisioned (and re-reprovisioned) for different organisations, and we keep track of them as part of our event flow to add one more layer of data accountabilty/ownership
+
+<h2 id="sensor_create-one">Create One</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/sensor -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/sensor HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /sensor`
+
+*Add a new sensor*
+
+> Body parameter
+
+```json
+{
+  "parent_org": 5678567856785678,
+  "sensor_version": "7",
+  "sensor_type": "glove/palm",
+  "sensor_id": "12345"
+}
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-02-15T12:56:48.446Z",
+  "timestamp": 1518699408446,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5759902660165632"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Sensor](#sensor-schema)|Sensor object that needs to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Sensor](#sensor-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_create-many">Create Many</h2>
+
+> Code samples
+
+```shell
+curl -X POST https://api.signal.bio/sensor -H "{headers}" -d "{payload}"
+```
+
+```http
+POST https://api.signal.io/sensor HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`POST /sensor`
+
+*Add many sensors*
+
+> Body parameter
+
+```json
+[{
+  "parent_org": 5678567856785678,
+  "sensor_version": "7",
+  "sensor_type": "glove/palm",
+  "sensor_id": "12345"
+},{
+  "parent_org": 5678567856785678,
+  "sensor_version": "2",
+  "sensor_type": "chest/mid",
+  "sensor_id": "432"
+}]
+```
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:30:38.308Z",
+  "timestamp": 1517326238308,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|[Sensor](#sensor-schema)|Array of sensor objects that need to be added|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Sensor](#sensor-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+
+<h2 id="sensor_retrieve-one-by-id">Retrieve One by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/sensor/{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/sensor/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /sensor/{id}`
+
+*Retrieve a sensor by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-02-15T13:01:55.847Z",
+  "timestamp": 1518699715847,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "sensor_version": "7",
+    "created_at": "2018-02-15T12:56:48.338Z",
+    "parent_org": {
+      "id": "5678567856785678",
+      "kind": "Org",
+      "path": [
+        "Org",
+        "5678567856785678"
+      ]
+    },
+    "sensor_type": "glove/palm",
+    "modified_at": "2018-02-15T12:56:48.339Z",
+    "sensor_id": "12345"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Sensor entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_retrieve-many-by-id">Retrieve Many by Id</h2>
+
+> Code samples
+
+```shell
+curl https://api.signal.bio/sensor/{id},{id} -H "{headers}"
+```
+
+```http
+GET https://api.signal.io/sensor/{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`GET /sensor/{id},{id}`
+
+*Retrieve many sensors by id*
+
+> Success response
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-02-15T13:08:14.228Z",
+  "timestamp": 1518700094228,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": [
+    {
+      "sensor_version": "7",
+      "created_at": "2018-02-15T13:06:03.016Z",
+      "parent_org": {
+        "id": "5678567856785678",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "5678567856785678"
+        ]
+      },
+      "sensor_type": "glove/palm",
+      "modified_at": "2018-02-15T13:06:03.017Z",
+      "sensor_id": "12345"
+    },
+    {
+      "created_at": "2018-02-15T13:06:03.016Z",
+      "parent_org": {
+        "id": "5678567856785678",
+        "kind": "Org",
+        "path": [
+          "Org",
+          "5678567856785678"
+        ]
+      },
+      "sensor_type": "glove/palm",
+      "modified_at": "2018-02-15T13:06:03.016Z",
+      "sensor_id": "12345",
+      "sensor_version": "7"
+    }
+  ]
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Sensor entity ids separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_delete-one-by-id">Delete One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/sensor/{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/sensor/{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /sensor/{id}`
+
+*Delete a sensor by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:55:13.871Z",
+  "timestamp": 1517327713871,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|id|url|Integer|Sensor entity id|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_delete-many-id">Delete Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X DELETE https://api.signal.bio/sensor/{id},{id},{id} -H "{headers}"
+```
+
+```http
+DELETE https://api.signal.io/sensor/{id},{id},{id} HTTPS/1.1
+Host: api.signal.bio
+Authorization: bearer {jwt}
+```
+
+`DELETE /sensor/{id},{id},{id}`
+
+*Delete many sensors by id*
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T15:57:57.367Z",
+  "timestamp": 1517327877367,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "6487942298075136",
+      "4658354949455872"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|ids|url|Integer|Sensor entity id separated by commas|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_update-one-by-id">Update One by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/sensor -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/sensor HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /sensor`
+
+*Update an existing sensor*
+
+> Body parameter
+
+```json
+{ 
+    "5655778694266880": {
+        "parent_org": 1111222233334444
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Sensor](#sensor-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+
+<h2 id="sensor_update-many-by-id">Update Many by Id</h2>
+
+> Code samples
+
+```shell
+curl -X PUT https://api.signal.bio/sensor -H "{headers}" -d "{payload}"
+```
+
+```http
+PUT https://api.signal.io/sensor HTTPS/1.1
+Host: api.signal.bio
+Content-Type: application/json
+Authorization: bearer {jwt}
+```
+
+`PUT /sensor`
+
+*Update many existing sensors*
+
+> Body parameter
+
+```json
+{   
+    "5655778694266880": {
+        "parent_org": false 
+    },
+    "5092828740845568": {
+        "sensor_id": "yul-773"
+    }
+}
+```
+
+> Success payload
+
+```json
+{
+  "program": "ox",
+  "version": "0.0.5",
+  "datetime": "2018-01-30T16:13:33.062Z",
+  "timestamp": 1517328813062,
+  "code": 200,
+  "status": "success",
+  "message": "Call successful",
+  "data": {
+    "ids": [
+      "5655778694266880",
+      "5092828740845568"
+    ],
+    "info": "done"
+  }
+}
+```
+
+### Parameters
+
+|Parameter|In|Type|Description|
+|---|---|---|---|---|
+|body|body|Object|Key/value pairs of entities and updates|
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK|Request was successful|None|
+|400|[Bad Request](#errors)|Invalid payload|[Sensor](#sensor-schema)|
+|401|[Unauthorized](#errors)|Invalid token|None|
+
+<aside class="warning">You must be authenticated to access this endpoint</aside>

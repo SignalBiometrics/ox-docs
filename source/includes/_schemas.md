@@ -295,7 +295,55 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |-|-|-|
 |org_owner|Integer|Object([Key](#key-schema))|
 
+
 <h2 id="sensor-schema">Sensor</h2>
+
+> Request Payload
+
+```json
+{
+  "parent_org": 5678567856785678
+  "sensor_version": "7",
+  "sensor_type": "glove/palm",
+  "sensor_id": "12345"
+}
+```
+
+> Return Payload
+
+```json
+{
+  "sensor_version": "7",
+  "created_at": "2018-02-15T12:56:48.338Z",
+  "parent_org": {
+    "id": "5678567856785678",
+    "kind": "Org",
+    "path": [
+      "Org",
+      "5678567856785678"
+    ]
+  },
+  "sensor_type": "glove/palm",
+  "modified_at": "2018-02-15T12:56:48.339Z",
+  "sensor_id": "12345"
+}
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|-|-|-|-|
+
+### Appended Values
+
+|Property|Description|
+|-|-|
+
+### Modified Values
+
+|Property|From|To|
+|-|-|-|
+
 
 <h2 id="key-schema">Key</h2>
 
@@ -343,9 +391,12 @@ Keys objects are generated when creating entities and are the most direct way to
 |-|-|-|
 |id|Interger|String|
 
+
 <h2 id="idmap-schema">IdMap</h2>
 
-IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it. We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see [this](https://cloud.google.com/firestore/docs/solutions/arrays) GCP documentation for more details)
+IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it  
+
+We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see [this](https://cloud.google.com/firestore/docs/solutions/arrays) GCP documentation for more details)
 
 > Request Payload
 
@@ -366,4 +417,4 @@ IdMap object are simple value maps of entities ids assigned an integer timestamp
 
 |Name|Type|Required|Description|
 |-|-|-|-|
-Timestamp|Integer|true|Epoch timestamp to enable; zero value to disable|
+|Timestamp|Integer|true|Epoch timestamp to enable; zero value to disable|

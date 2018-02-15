@@ -335,6 +335,50 @@ window.onpopstate = function() {
           <li>
             <a href="#-sensor" class="toc-h1 toc-link" data-title="/sensor">/sensor</a>
             
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#sensor_create-one" class="toc-h2 toc-link" data-title="Create One">Create One</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_create-many" class="toc-h2 toc-link" data-title="Create Many">Create Many</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_retrieve-one-by-id" class="toc-h2 toc-link" data-title="Retrieve One by Id">Retrieve One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_retrieve-many-by-id" class="toc-h2 toc-link" data-title="Retrieve Many by Id">Retrieve Many by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_delete-one-by-id" class="toc-h2 toc-link" data-title="Delete One by Id">Delete One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_delete-many-id" class="toc-h2 toc-link" data-title="Delete Many by Id">Delete Many by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_update-one-by-id" class="toc-h2 toc-link" data-title="Update One by Id">Update One by Id</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#sensor_update-many-by-id" class="toc-h2 toc-link" data-title="Update Many by Id">Update Many by Id</a>
+                    
+                  </li>
+                
+              </ul>
+            
           </li>
         
           <li>
@@ -3254,8 +3298,8 @@ Host</span>: api.signal.bio
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Sensor"</span>,
       <span class="hljs-attr">"path"</span>: [
         <span class="hljs-string">"Sensor"</span>,
-        <span class="hljs-string">"678967896789"</span>
       ]
+        <span class="hljs-string">"678967896789"</span>
     },
     <span class="hljs-attr">"event_timestamp"</span>: <span class="hljs-number">1234567000</span>,
     <span class="hljs-attr">"event_reading"</span>: <span class="hljs-number">123</span>,
@@ -3782,6 +3826,728 @@ Host</span>: api.signal.bio
 </table>
 <aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="-sensor">/sensor</h1>
+<p><code>/sensor</code></p>
+<p>Sensors are devices that pick up the events and broadcast them to beacons. A sensor could be an assembly doing both the acquisition (i.e. sensing device) and the broadcasting (i.e. the enclosure)</p>
+<p>Sensors can be provisioned (and re-reprovisioned) for different organisations, and we keep track of them as part of our event flow to add one more layer of data accountabilty/ownership</p>
+<h2 id="sensor_create-one">Create One</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/sensor -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/sensor HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /sensor</code></p>
+<p><em>Add a new sensor</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">5678567856785678</span>,
+  <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+  <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+}
+</code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-02-15T12:56:48.446Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1518699408446</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5759902660165632"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+<td>Sensor object that needs to be added</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_create-many">Create Many</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X POST https://api.signal.bio/sensor -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">POST https://api.signal.io/sensor HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>POST /sensor</code></p>
+<p><em>Add many sensors</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">5678567856785678</span>,
+  <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+  <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+},{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">5678567856785678</span>,
+  <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"2"</span>,
+  <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"chest/mid"</span>,
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"432"</span>
+}]
+</code></pre>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:30:38.308Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517326238308</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+<td>Array of sensor objects that need to be added</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sensor_retrieve-one-by-id">Retrieve One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/sensor/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/sensor/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /sensor/{id}</code></p>
+<p><em>Retrieve a sensor by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-02-15T13:01:55.847Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1518699715847</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-15T12:56:48.338Z"</span>,
+    <span class="hljs-attr">"parent_org"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5678567856785678"</span>,
+      <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+      <span class="hljs-attr">"path"</span>: [
+        <span class="hljs-string">"Org"</span>,
+        <span class="hljs-string">"5678567856785678"</span>
+      ]
+    },
+    <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+    <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-15T12:56:48.339Z"</span>,
+    <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Sensor entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_retrieve-many-by-id">Retrieve Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl https://api.signal.bio/sensor/{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">GET https://api.signal.io/sensor/{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>GET /sensor/{id},{id}</code></p>
+<p><em>Retrieve many sensors by id</em></p>
+<blockquote>
+<p>Success response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-02-15T13:08:14.228Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1518700094228</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: [
+    {
+      <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-15T13:06:03.016Z"</span>,
+      <span class="hljs-attr">"parent_org"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5678567856785678"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"Org"</span>,
+          <span class="hljs-string">"5678567856785678"</span>
+        ]
+      },
+      <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-15T13:06:03.017Z"</span>,
+      <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+    },
+    {
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-15T13:06:03.016Z"</span>,
+      <span class="hljs-attr">"parent_org"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5678567856785678"</span>,
+        <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+        <span class="hljs-attr">"path"</span>: [
+          <span class="hljs-string">"Org"</span>,
+          <span class="hljs-string">"5678567856785678"</span>
+        ]
+      },
+      <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+      <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-15T13:06:03.016Z"</span>,
+      <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>,
+      <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>
+    }
+  ]
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Sensor entity ids separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_delete-one-by-id">Delete One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/sensor/{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/sensor/{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /sensor/{id}</code></p>
+<p><em>Delete a sensor by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:55:13.871Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327713871</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>url</td>
+<td>Integer</td>
+<td>Sensor entity id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_delete-many-id">Delete Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X DELETE https://api.signal.bio/sensor/{id},{id},{id} -H <span class="hljs-string">"{headers}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">DELETE https://api.signal.io/sensor/{id},{id},{id} HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>DELETE /sensor/{id},{id},{id}</code></p>
+<p><em>Delete many sensors by id</em></p>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T15:57:57.367Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517327877367</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"6487942298075136"</span>,
+      <span class="hljs-string">"4658354949455872"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td>url</td>
+<td>Integer</td>
+<td>Sensor entity id separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_update-one-by-id">Update One by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/sensor -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/sensor HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>PUT /sensor</code></p>
+<p><em>Update an existing sensor</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{ 
+    <span class="hljs-attr">"5655778694266880"</span>: {
+        <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">1111222233334444</span>
+    }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
+<h2 id="sensor_update-many-by-id">Update Many by Id</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl -X PUT https://api.signal.bio/sensor -H <span class="hljs-string">"{headers}"</span> <span class="hljs-_">-d</span> <span class="hljs-string">"{payload}"</span>
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-attribute">PUT https://api.signal.io/sensor HTTPS/1.1
+Host</span>: api.signal.bio
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Authorization</span>: bearer {jwt}
+</code></pre>
+<p><code>PUT /sensor</code></p>
+<p><em>Update many existing sensors</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{   
+    <span class="hljs-attr">"5655778694266880"</span>: {
+        <span class="hljs-attr">"parent_org"</span>: <span class="hljs-literal">false</span> 
+    },
+    <span class="hljs-attr">"5092828740845568"</span>: {
+        <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"yul-773"</span>
+    }
+}
+</code></pre>
+<blockquote>
+<p>Success payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"ox"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.0.5"</span>,
+  <span class="hljs-attr">"datetime"</span>: <span class="hljs-string">"2018-01-30T16:13:33.062Z"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1517328813062</span>,
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Call successful"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"ids"</span>: [
+      <span class="hljs-string">"5655778694266880"</span>,
+      <span class="hljs-string">"5092828740845568"</span>
+    ],
+    <span class="hljs-attr">"info"</span>: <span class="hljs-string">"done"</span>
+  }
+}
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>Object</td>
+<td>Key/value pairs of entities and updates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Request was successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="#errors">Bad Request</a></td>
+<td>Invalid payload</td>
+<td><a href="#sensor-schema">Sensor</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="#errors">Unauthorized</a></td>
+<td>Invalid token</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">You must be authenticated to access this endpoint</aside>
 <h1 id="schemas">Schemas</h1>
 <p>Schemas <strong>might not</strong> be identical our internal representation (i.e. models) of the entities or even how entities are returned when queried. To illustrate this, we are including examples payload that should be passed with POST requests (<em>Request Payload</em>), and what is the expected results from GET requests (<em>Response Payload</em>)</p>
 <p>There is also table with <em>Appended Values</em> and <em>Modified Values</em>. <em>Appended Values</em> are added during the creation or modification of entities, while <em>Modified Values</em> are changed on the fly, for instance when casting a type into another</p>
@@ -4299,6 +5065,68 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <h2 id="sensor-schema">Sensor</h2>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"parent_org"</span>: <span class="hljs-number">5678567856785678</span>
+  <span class="hljs-string">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+  <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+}
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"sensor_version"</span>: <span class="hljs-string">"7"</span>,
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2018-02-15T12:56:48.338Z"</span>,
+  <span class="hljs-attr">"parent_org"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5678567856785678"</span>,
+    <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Org"</span>,
+    <span class="hljs-attr">"path"</span>: [
+      <span class="hljs-string">"Org"</span>,
+      <span class="hljs-string">"5678567856785678"</span>
+    ]
+  },
+  <span class="hljs-attr">"sensor_type"</span>: <span class="hljs-string">"glove/palm"</span>,
+  <span class="hljs-attr">"modified_at"</span>: <span class="hljs-string">"2018-02-15T12:56:48.339Z"</span>,
+  <span class="hljs-attr">"sensor_id"</span>: <span class="hljs-string">"12345"</span>
+}
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 id="appended-values">Appended Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 <h2 id="key-schema">Key</h2>
 <p>Keys objects are generated when creating entities and are the most direct way to reference (or retrieve) them. They are passed as integer to the API which turns it into an object or are created when a new entity is added</p>
 <blockquote>
@@ -4378,7 +5206,8 @@ Host</span>: api.signal.bio
 </tbody>
 </table>
 <h2 id="idmap-schema">IdMap</h2>
-<p>IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it. We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see <a href="https://cloud.google.com/firestore/docs/solutions/arrays">this</a> GCP documentation for more details)</p>
+<p>IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it</p>
+<p>We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see <a href="https://cloud.google.com/firestore/docs/solutions/arrays">this</a> GCP documentation for more details)</p>
 <blockquote>
 <p>Request Payload</p>
 </blockquote>
@@ -4408,7 +5237,7 @@ Host</span>: api.signal.bio
 <td>Timestamp</td>
 <td>Integer</td>
 <td>true</td>
-<td>Epoch timestamp to enable, zero value to disable</td>
+<td>Epoch timestamp to enable; zero value to disable</td>
 </tr>
 </tbody>
 </table>
