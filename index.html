@@ -373,7 +373,7 @@ window.onpopstate = function() {
                   </li>
                 
                   <li>
-                    <a href="#idmap-schema" class="toc-h2 toc-link" data-title="Schema">Schema</a>
+                    <a href="#idmap-schema" class="toc-h2 toc-link" data-title="IdMap">IdMap</a>
                     
                   </li>
                 
@@ -4300,7 +4300,118 @@ Host</span>: api.signal.bio
 </table>
 <h2 id="sensor-schema">Sensor</h2>
 <h2 id="key-schema">Key</h2>
-<h2 id="idmap-schema">Schema</h2>
+<p>Keys objects are generated when creating entities and are the most direct way to reference (or retrieve) them. They are passed as integer to the API which turns it into an object or are created when a new entity is added</p>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[...]
+<span class="hljs-string">"event_sensor"</span>: <span class="hljs-number">678967896789</span>
+[...]
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[...]
+<span class="hljs-string">"event_sensor"</span>: {
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"678967896789"</span>,
+  <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Sensor"</span>,
+  <span class="hljs-attr">"path"</span>: [
+    <span class="hljs-string">"Sensor"</span>,
+    <span class="hljs-string">"678967896789"</span>
+  ]
+}
+[...]
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>true</td>
+<td>This is the entity Id</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appended-values">Appended Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kind</td>
+<td>Entity type</td>
+</tr>
+<tr>
+<td>path</td>
+<td>Entity hiearchy path</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modified-values">Modified Values</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Interger</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h2 id="idmap-schema">IdMap</h2>
+<p>IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it. We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see <a href="https://cloud.google.com/firestore/docs/solutions/arrays">this</a> GCP documentation for more details)</p>
+<blockquote>
+<p>Request Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[...]
+<span class="hljs-string">"1234123412341234"</span>: <span class="hljs-number">15432324324</span>
+[...]
+</code></pre>
+<blockquote>
+<p>Return Payload</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[...]
+<span class="hljs-string">"1234123412341234"</span>: <span class="hljs-number">15432324324</span>
+[...]
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timestamp</td>
+<td>Integer</td>
+<td>true</td>
+<td>Epoch timestamp to enable, zero value to disable</td>
+</tr>
+</tbody>
+</table>
 <h1 id="errors">Errors</h1>
 <p>The <code>ox</code> API uses the following error codes:</p>
 <table>

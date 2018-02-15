@@ -296,5 +296,74 @@ There is also table with _Appended Values_ and _Modified Values_. _Appended Valu
 |org_owner|Integer|Object([Key](#key-schema))|
 
 <h2 id="sensor-schema">Sensor</h2>
+
 <h2 id="key-schema">Key</h2>
-<h2 id="idmap-schema">Schema</h2>
+
+Keys objects are generated when creating entities and are the most direct way to reference (or retrieve) them. They are passed as integer to the API which turns it into an object or are created when a new entity is added
+
+> Request Payload
+
+```json
+[...]
+"event_sensor": 678967896789
+[...]
+```
+
+> Return Payload
+
+```json
+[...]
+"event_sensor": {
+  "id": "678967896789",
+  "kind": "Sensor",
+  "path": [
+    "Sensor",
+    "678967896789"
+  ]
+}
+[...]
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|-|-|-|-|
+|id|Integer|true|This is the entity Id|
+
+### Appended Values
+
+|Property|Description|
+|-|-|
+|kind|Entity type|
+|path|Entity hiearchy path|
+
+### Modified Values
+
+|Property|From|To|
+|-|-|-|
+|id|Interger|String|
+
+<h2 id="idmap-schema">IdMap</h2>
+
+IdMap object are simple value maps of entities ids assigned an integer timestamp as their only properties. Effectively, we're using this to keep track of dependent entities and to enable or disable them. A non-zero timestamp enable an entity, while a zero value disable it. We are using timestamp rather than boolean because it allows us to make complex queries without the need to compile indexes (see [this](https://cloud.google.com/firestore/docs/solutions/arrays) GCP documentation for more details)
+
+> Request Payload
+
+```json
+[...]
+"1234123412341234": 15432324324
+[...]
+```
+
+> Return Payload
+```json
+[...]
+"1234123412341234": 15432324324
+[...]
+```
+
+### Properties
+
+|Name|Type|Required|Description|
+|-|-|-|-|
+Timestamp|Integer|true|Epoch timestamp to enable; zero value to disable|
